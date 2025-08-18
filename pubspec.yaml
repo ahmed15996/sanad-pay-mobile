@@ -1,0 +1,86 @@
+name: sanad
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  dio: ^5.8.0+1
+  get_it: ^8.0.3
+  injectable: ^2.5.0
+  equatable: ^2.0.7
+  json_annotation: ^4.9.0
+  flutter_bloc: ^9.1.1
+  bloc: ^9.0.0
+  image_picker: ^1.1.2
+  pinput: ^5.0.1
+  flutter_svg: ^2.2.0
+  dartz: ^0.10.1
+  internet_connection_checker_plus: ^2.7.2
+  device_info_plus: ^11.5.0
+  device_preview: ^1.2.0
+  flutter_screenutil: ^5.9.3
+  easy_localization: ^3.0.7+1
+  shared_preferences: ^2.5.3
+  fluttertoast: ^8.2.12
+  firebase_core: ^4.0.0
+  firebase_messaging: ^16.0.0
+  pretty_dio_logger: ^1.4.0
+  flutter_local_notifications: ^19.3.0
+  flutter_image_compress: ^2.4.0
+  cached_network_image: ^3.4.1
+  upgrader: ^11.4.0
+  firebase_crashlytics: ^5.0.0
+  carousel_slider: ^5.1.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  injectable_generator: ^2.7.0
+  build_runner: ^2.5.4
+  json_serializable: ^6.9.5
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/translations/
+    - assets/images/
+    - assets/images/icons/
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Manrope-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Manrope-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Manrope-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Manrope-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Manrope-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Manrope-ExtraBold.ttf
+          weight: 800
