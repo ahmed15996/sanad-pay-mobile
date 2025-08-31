@@ -21,6 +21,8 @@ class AuthLocalDataSourceImpl extends AuthLocalDataSource {
   }) {
     try {
       appPref.saveData(AppCached.token, token);
+      appPref.saveData(AppCached.role, userModel.type);
+      appPref.saveData(AppCached.userId, userModel.id);
     } catch (error) {
       throw CacheSaveException();
     }

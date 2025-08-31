@@ -7,4 +7,4 @@ part of 'send_code_param.dart';
 // **************************************************************************
 
 Map<String, dynamic> _$SendCodeParamToJson(SendCodeParam instance) =>
-    <String, dynamic>{'mobile': instance.mobile};
+    <String, dynamic>{'phone': instance.phone};

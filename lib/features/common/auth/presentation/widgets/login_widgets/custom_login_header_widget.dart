@@ -10,13 +10,10 @@ class CustomLoginHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 7.w),
-      child: Text(
-        LocaleKeys.enterMobileNumber.tr(),
-        style: AppTextStyles.textStyle16.copyWith(
-          color: AppColors.darkSecondaryColor
-        ),
+    return  Text(
+      LocaleKeys.enterMobileNumber.tr(),
+      style: AppTextStyles.textStyle16.copyWith(
+        color: AppColors.rhinoDark.shade400
       ),
     );
   }

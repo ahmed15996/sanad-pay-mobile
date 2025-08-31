@@ -1,12 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sanad/core/constants/app_assets.dart';
 import 'package:sanad/core/framework/spaces.dart';
-import 'package:sanad/core/widgets/custom_button.dart';
-
+import 'package:sanad/features/user/payments/presentation/views/widgets/payments_widget/custom_previous_payments_list_widget.dart';
+import 'package:sanad/features/user/payments/presentation/views/widgets/payments_widget/custom_tabbar_widget.dart';
+import 'package:sanad/features/user/payments/presentation/views/widgets/payments_widget/custom_upcoming_payments_tab_view_widget.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_text_styles.dart';
+import '../../../../../core/di/di.dart';
+import '../../../../../generated/locale_keys.g.dart';
+import '../cubits/payments_cubit/payments_cubit.dart';
 
 class PaymentsView extends StatelessWidget {
   const PaymentsView({super.key});
@@ -15,130 +19,67 @@ class PaymentsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
-      body: Column(
-        children: [
-          Expanded(
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsetsDirectional.only(start: 24.w, top: 40.h),
-                child: Align(
-                  alignment: AlignmentDirectional.topStart,
-                  child: Text(
-                    "Payment",
-                    style: AppTextStyles.textStyle20.copyWith(
-                      fontWeight: FontWeight.w600,
+      body: BlocProvider(
+        create: (context) => getIt<PaymentsCubit>()..fetchUpcomingPayments(),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsetsDirectional.only(start: 24.w, top: 30.h),
+                  child: Align(
+                    alignment: AlignmentDirectional.topStart,
+                    child: Text(
+                      LocaleKeys.payment.tr(),
+                      style: AppTextStyles.textStyle20.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.rhinoDark.shade600,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
-              ),
-              child: DefaultTabController(
-                length: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.greyLightColor,
-                        borderRadius: BorderRadius.circular(16.r),
-                      ),
-                      child: TabBar(
-                        labelStyle: AppTextStyles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                        labelColor: AppColors.darkSecondaryColor,
-                        unselectedLabelColor: AppColors.darkSecondaryColor,
-                        unselectedLabelStyle: AppTextStyles.textStyle14.copyWith(
-                          fontWeight: FontWeight.w400,
-                        ),
-                        indicator: ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16.r),
-                            ),
-                            color: AppColors.whiteColor
-                        ),
-
-                        tabs: [
-                          Tab(child: Text("Upcoming Payment")),
-                          Tab(child: Text("Previous Payments")),
-                        ],
-                      ),
+              Expanded(
+                flex: 7,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 20.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteColor,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(24.r),
                     ),
-                    heightSpace(24),
-                    TabBarView(
-                      children: [
-                        Column(
+                  ),
+                  child: BlocBuilder<PaymentsCubit, PaymentsState>(
+                    builder: (context, state) {
+                      return DefaultTabController(
+                        length: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(borderRadius: BorderRadius.circular(38.5.r),child: Image.asset(AppAssets.logo,width: 77.w,height: 77.h,)),
-                            heightSpace(32),
-                            Text("Payment Date\nJanuary 27",style: AppTextStyles.textStyle28.copyWith(
-                              color: AppColors.darkSecondaryColor
-                            ),),
+                            CustomTabBarWidget(),
                             heightSpace(24),
-                            Text("300,00",style: AppTextStyles.textStyle20.copyWith(
-                              fontWeight: FontWeight.w500,
-                                color: AppColors.secondaryColor
-                            ),),
-                            heightSpace(40),
-                           CustomButton(
-                             text: "Pay Now",
-                           ),
-                            heightSpace(25),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Transaction History",style: AppTextStyles.textStyle14.copyWith(
-                                    fontWeight: FontWeight.bold,
-
-                                ),),
-                                Icon(Icons.arrow_forward_ios,color: AppColors.primaryColor,)
-                              ],
-                            )
+                            Expanded(
+                              child: TabBarView(
+                                physics: NeverScrollableScrollPhysics(),
+                                children: [
+                                  CustomUpcomingPaymentsTabViewWidget(),
+                                  CustomPreviousPaymentsListWidget(),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                        ListView.separated(itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              SvgPicture.asset(AppAssets.previousPayment),
-                              widthSpace(12.w),
-                              Expanded(child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Payment Date (January 27)",style: AppTextStyles.textStyle14.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.darkSecondaryColor
-                                  ),),
-                                  heightSpace(4),
-                                  Text("300,00",style: AppTextStyles.textStyle16.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.secondaryColor
-                                  ),),
-
-                                ],)),
-                            ],
-                          );
-                        }, separatorBuilder: (context, index) {
-                          return heightSpace(24.h);
-                        }, itemCount: 4)
-
-                      ],
-                    ),
-                    
-                  ],
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -5,6 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../features/store/home/data/models/order_model.dart';
+import '../../features/user/payments/data/arguments/payment_request_arguments.dart';
+import '../../sanad_app.dart';
+import '../util/routing/routes.dart';
+
 @injectable
 class AppNotifications {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -123,6 +128,13 @@ class AppNotifications {
 
 
   static void navigateToView(Map<String, dynamic> details) {
-
+     if(details["type"] == "order"){
+       SanadApp.appNavigatorKey.currentState!.pushNamed(
+         Routes.paymentRequestView,
+         arguments: PaymentRequestArguments(
+           orderModel: OrderModel.fromJson(details["order"]),
+         ),
+       );
+     }
   }
 }

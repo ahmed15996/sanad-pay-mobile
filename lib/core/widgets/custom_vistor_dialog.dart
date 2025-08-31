@@ -53,7 +53,8 @@ class CustomVisitorDialog extends StatelessWidget {
             Text(
               LocaleKeys.signInRequest.tr(),
               style: AppTextStyles.textStyle16.copyWith(
-                fontWeight: FontWeight.w500
+                fontWeight: FontWeight.w500,
+                color: AppColors.blackColor,
               ),
               textAlign: TextAlign.center,
             ),

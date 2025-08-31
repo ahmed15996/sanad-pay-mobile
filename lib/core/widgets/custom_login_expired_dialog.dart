@@ -37,7 +37,7 @@ class CustomLoginExpiredDialog extends StatelessWidget {
                 Text(
                   LocaleKeys.unAuthenticated.tr(),
                   style: AppTextStyles.textStyle14
-                      .copyWith(color: AppColors.whiteColor),
+                      .copyWith(color: AppColors.blackColor),
                   textAlign: TextAlign.center,
                 ),
                 heightSpace(25.h),

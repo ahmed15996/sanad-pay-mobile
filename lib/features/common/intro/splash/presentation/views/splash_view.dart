@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sanad/core/constants/app_assets.dart';
 import 'package:sanad/core/constants/app_text_styles.dart';
 import 'package:sanad/core/framework/spaces.dart';
@@ -40,9 +41,9 @@ class _SplashViewState extends State<SplashView> {
             children: [
               Spacer(flex: 3),
               Center(
-                child: Image.asset(AppAssets.logo, width: 166.w, height: 202.h),
+                child: SvgPicture.asset(AppAssets.logo, width: 166.w, height: 202.h),
               ),
-              heightSpace(20),
+              heightSpace(63),
               Text(
                 LocaleKeys.appName.tr().toUpperCase(),
                 style: AppTextStyles.textStyle32,

@@ -4,14 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sanad/core/util/extensions/media_query.dart';
 import '../../generated/locale_keys.g.dart';
+import '../constants/app_colors.dart';
 import '../constants/app_text_styles.dart';
 import '../framework/spaces.dart';
 
 class CustomEmptyData extends StatelessWidget {
-  final String? image, text;
+  final String? image, text,subtitle;
 
 
-  const CustomEmptyData({super.key, this.image, this.text});
+  const CustomEmptyData({super.key, this.image, this.text,this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,26 @@ class CustomEmptyData extends StatelessWidget {
             image!,
             height: context.height * 0.24,
           ),
-          heightSpace(45.h),
+          heightSpace(32.h),
           Text(
             text ?? LocaleKeys.emptyData.tr(),
-            style: AppTextStyles.textStyle14.copyWith(
-              fontWeight: FontWeight.w700,
+            style: AppTextStyles.textStyle28.copyWith(
+              fontWeight: FontWeight.w600,
+              color: AppColors.rhinoDark.shade600,
             ),
             textAlign: TextAlign.center,
           ),
+          if(subtitle != null)
+            ...[
+              heightSpace(8.h),
+              Text(
+                subtitle!,
+                style: AppTextStyles.textStyle14.copyWith(
+                  color: AppColors.blackColor
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ]
         ],
       ),
     );

@@ -19,7 +19,7 @@ class CustomCodeSentSuccessWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(TextSpan(
       text:  "${LocaleKeys.sentVerificationCode.tr()}: $phone.  ",
-      style: AppTextStyles.textStyle16.copyWith(color: AppColors.darkSecondaryColor),
+      style: AppTextStyles.textStyle16.copyWith(color: AppColors.rhinoDark.shade400),
       children: [
         TextSpan(
             text:

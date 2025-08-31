@@ -9,11 +9,11 @@ class CustomButton extends StatelessWidget {
   final Widget? child;
   final void Function()? onPressed;
   final double? height, width, strokeWidth, radius, horizontalMargin;
-  final Color? backgroundColor;
+  final Color? backgroundColor,loadingColor;
   final Border? border;
   final String? text;
   final TextStyle? style;
-  final bool isLoading;
+  final bool isLoading,isDisabled;
 
   const CustomButton({
     super.key,
@@ -25,24 +25,26 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.backgroundColor,
     this.isLoading = false,
+    this.isDisabled = false,
     this.border,
     this.radius,
     this.horizontalMargin,
+    this.loadingColor,
     this.strokeWidth,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: isDisabled ? null : onPressed,
       child: Container(
-        height: (height ?? 56).h,
+        height: (height ?? 50).h,
         width: width ?? double.infinity,
         margin: EdgeInsets.symmetric(horizontal: (horizontalMargin ?? 0).w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular((radius ?? 30).r),
           border: border,
-          color: backgroundColor ?? AppColors.primaryColor,
+          color: backgroundColor ?? (isDisabled ? AppColors.rhinoDark.shade50 : AppColors.primaryColor),
         ),
         child: isLoading == true
             ? Row(
@@ -55,13 +57,14 @@ class CustomButton extends StatelessWidget {
                           style: style ??
                               AppTextStyles.textStyle16.copyWith(
                                 fontWeight: FontWeight.w600,
+                                color: isDisabled ? AppColors.rhinoDark.shade300 : null
                               ), 
                         ),
                   ),
                   widthSpace(7.w),
                   CustomLoading(
                     isButton: true,
-                    loadingColor: AppColors.blackColor,
+                    loadingColor: loadingColor ?? AppColors.whiteColor,
                     strokeWidth: strokeWidth ?? 3.5.w,
                   ),
                 ],
@@ -74,6 +77,7 @@ class CustomButton extends StatelessWidget {
                       style: style ??
                           AppTextStyles.textStyle16.copyWith(
                             fontWeight: FontWeight.w600,
+                            color: isDisabled ? AppColors.rhinoDark.shade300 : null
                           ),
                     )),
               ),

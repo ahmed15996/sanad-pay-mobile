@@ -7,4 +7,11 @@ class AppShadows{
     offset: Offset(0, 12),
     spreadRadius: 0,
   );
+
+  static BoxShadow offerContainerShadow = BoxShadow(
+    color: Color(0xff555E68).withOpacity(0.1),
+    blurRadius: 100,
+    offset: Offset(0, 10),
+    spreadRadius: 0,
+  );
 }

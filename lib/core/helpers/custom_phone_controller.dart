@@ -11,23 +11,23 @@ class PhoneFieldController extends ChangeNotifier {
 
   bool validatePhoneField() {
     final isPhoneFieldEmpty = controller.text.isEmpty;
-    final RegExp regex = RegExp(r'^(05\d{8}|5\d{8})$');
+    final RegExp regex = RegExp(r'^(5\d{8}|05\d{8})$');
+
     final isSaudiNumber = regex.hasMatch(controller.text);
+
     if (isPhoneFieldEmpty) {
       errorMessage = LocaleKeys.emptyPhone.tr();
       phoneFieldBorder = PhoneFieldBorder.error;
       notifyListeners();
-    }
-    else if (!isSaudiNumber) {
+    } else if (!isSaudiNumber) {
       errorMessage = LocaleKeys.validatePhone.tr();
       phoneFieldBorder = PhoneFieldBorder.error;
       notifyListeners();
-    }
-    else {
+    } else {
       disableError();
     }
 
-    if (!isPhoneFieldEmpty) {
+    if (!isPhoneFieldEmpty && isSaudiNumber) {
       return true;
     } else {
       return false;

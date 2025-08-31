@@ -9,28 +9,23 @@ part of 'user_model.dart';
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   id: (json['id'] as num).toInt(),
   name: json['name'] as String,
-  mobile: json['mobile'] as String?,
-  email: json['email'] as String?,
+  nationalIdVerified: UserModel._fromJson(
+    (json['national_id_verified'] as num).toInt(),
+  ),
+  phone: json['phone'] as String,
   image: json['image'] as String,
-  role: json['role'] as String,
-  isNotifiable: UserModel._fromJson((json['is_notifiable'] as num?)?.toInt()),
-  username: json['username'] as String,
-  isPlus: UserModel._fromJson((json['is_plus'] as num?)?.toInt()),
-  isFriend: json['is_friend'] as bool?,
-  hasChallenge: json['has_challenge'] as bool?,
-)..isFollowing = json['is_following'] as bool?;
+  type: json['type'] as String,
+  balance: (json['balance'] as num).toInt(),
+  email: json['email'] as String?,
+);
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
   'id': instance.id,
-  'is_plus': instance.isPlus,
-  'is_notifiable': instance.isNotifiable,
-  'is_friend': instance.isFriend,
-  'is_following': instance.isFollowing,
-  'has_challenge': instance.hasChallenge,
+  'balance': instance.balance,
+  'national_id_verified': instance.nationalIdVerified,
   'name': instance.name,
-  'username': instance.username,
+  'phone': instance.phone,
   'image': instance.image,
+  'type': instance.type,
   'email': instance.email,
-  "role": instance.role,
-  'mobile': instance.mobile,
 };

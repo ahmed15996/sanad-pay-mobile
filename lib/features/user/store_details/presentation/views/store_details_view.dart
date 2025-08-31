@@ -1,160 +1,95 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sanad/core/helpers/url_launcher_helper.dart';
+import 'package:sanad/core/util/extensions/on_tap.dart';
 import 'package:sanad/core/widgets/custom_appbar.dart';
+import 'package:sanad/core/widgets/custom_error.dart';
+import 'package:sanad/core/widgets/custom_loading.dart';
+import 'package:sanad/features/user/store_details/data/arguments/store_details_arguments.dart';
+import 'package:sanad/features/user/store_details/presentation/cubit/store_details_cubit.dart';
+import 'package:sanad/features/user/store_details/presentation/views/widgets/custom_store_details_data_widget.dart';
+import 'package:sanad/features/user/store_details/presentation/views/widgets/custom_store_offers_list_widget.dart';
+import 'package:sanad/features/user/store_details/presentation/views/widgets/custom_store_working_time_widget.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/framework/spaces.dart';
 import '../../../../../core/widgets/custom_image_network.dart';
+import '../../../../../generated/locale_keys.g.dart';
 
 class StoreDetailsView extends StatelessWidget {
-  const StoreDetailsView({super.key});
+  final StoreDetailsArguments arguments;
+  const StoreDetailsView({super.key, required this.arguments});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: "Store Details"),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              CustomImageNetwork(
-                image: AppAssets.testImage,
-                radiusValue: 12,
-                widthImage: 97.w,
-                heightImage: 87.h,
-              ),
-              widthSpace(14.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: AppColors.scaffoldBackgroundColor,
+      appBar: CustomAppbar(title: LocaleKeys.storeDetails.tr()),
+      body: BlocBuilder<StoreDetailsCubit,StoreDetailsState>(builder: (context, state) {
+        var cubit = context.read<StoreDetailsCubit>();
+        if(state is GetStoreDetailsLoading){
+          return CustomLoading();
+        }else if(state is GetStoreDetailsFailure){
+          return CustomError(error: state.error, retry: (){
+            cubit.fetchStoreDetails(arguments.storeId);
+          });
+        }else{
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomStoreDetailsDataWidget(storeModel: cubit.storeModel!),
+                Row(
                   children: [
+                    widthSpace(121.w),
                     Text(
-                      "store name",
-                      style: AppTextStyles.textStyle16.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.secondaryColor,
-                      ),
-                    ),
-                    Text(
-                      "A store that sells all household needs, including groceries, fruits, and vegetables",
+                     LocaleKeys.openMap.tr(),
                       style: AppTextStyles.textStyle12.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.secondaryColor,
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                        decorationColor: AppColors.primaryColor,
+                        color: AppColors.primaryColor,
                       ),
-                    ),
+                    ).onTap(function: () {
+                      UrlLauncherHelper.openGoogleMap(cubit.storeModel!.lat, cubit.storeModel!.long);
+                    },),
                   ],
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              widthSpace(87.w),
-              Text(
-                "Open Map",
-                style: AppTextStyles.textStyle12.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryColor,
+                Padding(
+                  padding:  EdgeInsets.symmetric(vertical: 16.w),
+                  child: Divider(
+                    thickness: 3,
+                    color: AppColors.hintColor,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding:  EdgeInsets.symmetric(vertical: 16.w),
-            child: Divider(
-              thickness: 3,
-              color: AppColors.hintColor,
-            ),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SvgPicture.asset(AppAssets.clock),
-              widthSpace(12.w),
-              Expanded(child: Column(
-                children: [
-                  Text("Woking Time",style: AppTextStyles.textStyle14.copyWith(
-                    fontWeight: FontWeight.bold,
+                CustomStoreWorkingTimeWidget(workingTime: cubit.storeModel!.workingTime!),
+                Padding(
+                  padding:  EdgeInsets.symmetric(vertical: 16.w),
+                  child: Divider(
+                    thickness: 3,
+                    color: AppColors.hintColor,
+                  ),
+                ),
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 24.w),
+                  child: Text(LocaleKeys.offers.tr(),style: AppTextStyles.textStyle20.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.rhinoDark.shade600
                   ),),
-                  heightSpace(4),
-    Text("Open Now Till 11:59PM",style: AppTextStyles.textStyle12.copyWith(
-    fontWeight: FontWeight.w500,
-      color: AppColors.hintColor
-    ),),
-
-                ],
-              )),
-              Icon(Icons.keyboard_arrow_down_rounded,color: AppColors.primaryColor,)
-
-
-            ],
-          ),
-          Padding(
-            padding:  EdgeInsets.symmetric(vertical: 16.w),
-            child: Divider(
-              thickness: 3,
-              color: AppColors.hintColor,
+                ),
+                heightSpace(16),
+                CustomStoreOffersListWidget(offers: cubit.storeModel!.offers!)
+            
+              ],
             ),
-          ),
-          Text("Offers",style: AppTextStyles.textStyle20.copyWith(
-            fontWeight: FontWeight.w600,
-          ),),
-          heightSpace(16),
-          ListView.separated(itemBuilder: (context, index) {
-            return Container(
-              padding: EdgeInsets.all(16.w),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.r),
-                color: AppColors.whiteColor,
-              ),
-              child: Row(
-                children: [
-                  CustomImageNetwork(image: AppAssets.testImage,radiusValue: 12,widthImage: 90.w,heightImage: 90.h,),
-                  widthSpace(16.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text("store name",style: AppTextStyles.textStyle16.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.secondaryColor
-                              ),),
-                            ),
-                            Expanded(
-                              child: Text("10% off",style: AppTextStyles.textStyle14.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.secondaryColor
-                              ),),
-                            ),
-                          ],
-                        ),
-                        heightSpace(4),
-                        Text("Thu, 27 Aug 2025",style: AppTextStyles.textStyle16.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.darkSecondaryColor
-                        ),),heightSpace(4),
-                        Text("150 SAR",style: AppTextStyles.textStyle16.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.greenColor
-                        ),),
-
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            );
-          }, separatorBuilder: (context, index) {
-            return heightSpace(16);
-          }, itemCount: 3)
-        ],
-      ),
+          );
+        }
+      },)
     );
   }
 }

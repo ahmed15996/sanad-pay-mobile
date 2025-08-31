@@ -49,6 +49,7 @@ class CustomLoading extends StatelessWidget {
               LocaleKeys.loading.tr(),
               style: AppTextStyles.textStyle16.copyWith(
                 fontWeight: FontWeight.w700,
+                color: AppColors.blackColor
               ),
               textAlign: TextAlign.center,
             ),

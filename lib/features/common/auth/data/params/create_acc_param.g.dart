@@ -9,10 +9,8 @@ part of 'create_acc_param.dart';
 Map<String, dynamic> _$CreateAccParamToJson(CreateAccParam instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'phone': instance.phone,
       'email': instance.email,
-      'username': instance.username,
-      'mobile': instance.mobile,
-      'password': instance.password,
-      'password_confirmation': instance.passwordConfirmation,
-      'agreed_terms': instance.agreedTerms,
+      'fcm': instance.fcm,
+      'city_id': instance.cityId,
     };

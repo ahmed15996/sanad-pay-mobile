@@ -1,15 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sanad/features/common/auth/data/models/verify_code_model.dart';
 import '../../../../../../core/errors/exceptions.dart';
 import '../../../../../../core/errors/failures.dart';
 import '../../data_source/local/auth_local_data_source.dart';
 import '../../data_source/remote/auth_remote_data_source/auth_remote_data_source.dart';
-import '../../models/sign_in_model.dart';
 import '../../models/user_model.dart';
-import '../../params/check_otp_param.dart';
+import '../../params/verify_code_param.dart';
 import '../../params/create_acc_param.dart';
 import '../../params/send_code_param.dart';
-import '../../params/sign_in_param.dart';
 import 'auth_repository.dart';
 
 @Injectable(as: AuthRepository)
@@ -23,24 +22,12 @@ class AuthRepositoryImpl extends AuthRepository {
   });
 
   @override
-  Future<Either<Failure, String>> checkOtp({
-    required CheckOtpParam param,
+  Future<Either<Failure, VerifyCodeModel>> verifyCode({
+    required VerifyCodeParam param,
   }) async {
     try {
-      String message = await authRemoteDataSource.checkOtp(param: param);
-      return Right(message);
-    } on ServerException catch (exception) {
-      return Left(ApiFailure(exception.message!));
-    }
-  }
-
-  @override
-  Future<Either<Failure, SignInModel>> signIn({
-    required SignInParam param,
-  }) async {
-    try {
-      SignInModel signInModel = await authRemoteDataSource.signIn(param: param);
-      return Right(signInModel);
+      VerifyCodeModel verifyCodeModel = await authRemoteDataSource.verifyCode(param: param);
+      return Right(verifyCodeModel);
     } on ServerException catch (exception) {
       return Left(ApiFailure(exception.message!));
     }

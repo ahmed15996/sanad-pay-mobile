@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sanad/core/constants/app_colors.dart';
 import 'package:sanad/core/util/extensions/on_tap.dart';
 
 import '../../../../../../core/constants/app_text_styles.dart';
@@ -38,7 +39,7 @@ class CustomSettingItemWidget extends StatelessWidget {
               title,
               style: AppTextStyles.textStyle14.copyWith(
                 fontWeight: FontWeight.w500,
-                color: color
+                color: color ?? AppColors.rhinoDark.shade600
               ),
             ),
           ),

@@ -37,4 +37,11 @@ class UrlLauncherHelper{
     }
   }
 
+  static void openGoogleMap(String lat, String long) async {
+    final url = Uri.parse('https://www.google.com/maps/search/?api=1&query=$lat,$long');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
 }

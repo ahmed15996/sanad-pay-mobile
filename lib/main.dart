@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,19 +28,19 @@ void main() async {
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
     ),
   );
   await configureDependencies();
   await Future.wait([
-    getIt<AppFirebase>().initializeFirebaseNotifications(),
     getIt<di.DeviceInfo>().init(),
     ScreenUtil.ensureScreenSize(),
     EasyLocalization.ensureInitialized(),
   ]);
 
   Bloc.observer = MyBlocObserver();
+
 
   runApp(
     EasyLocalization(

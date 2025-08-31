@@ -8,6 +8,7 @@ import 'package:sanad/core/util/extensions/navigation.dart';
 import 'package:sanad/core/util/extensions/on_tap.dart';
 
 import '../../../../../../core/constants/app_assets.dart';
+import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
 import '../../../../../../core/framework/spaces.dart';
 import '../../../../../../generated/locale_keys.g.dart';
@@ -36,9 +37,10 @@ class CustomLogoutDialog extends StatelessWidget {
               children: [
                 const Spacer(),
                 Text(
-                  "",
+                  LocaleKeys.logout.tr(),
                   style: AppTextStyles.textStyle16.copyWith(
                     fontWeight: FontWeight.w700,
+                      color: AppColors.blackColor
                   ),
                 ),
                 const Spacer(),
@@ -55,16 +57,18 @@ class CustomLogoutDialog extends StatelessWidget {
             ),
             heightSpace(48.h),
             Text(
-              "",
+              LocaleKeys.areSureLogOut.tr(),
               style: AppTextStyles.textStyle16.copyWith(
                 fontWeight: FontWeight.w400,
+                  color: AppColors.blackColor
               ),
             ),
             heightSpace(20.h),
             Text(
-              "",
+              LocaleKeys.sureLogout.tr(),
               style: AppTextStyles.textStyle12.copyWith(
                   fontWeight: FontWeight.w500,
+                  color: AppColors.blackColor
 
               ),
             ),
@@ -74,7 +78,7 @@ class CustomLogoutDialog extends StatelessWidget {
                 final cubit = BlocProvider.of<ProfileCubit>(context);
                 return CustomDialogButtonsWidget(
                   state: state,
-                  confirmText: "",
+                  confirmText: LocaleKeys.logout.tr(),
                   confirmTap: () {
                     cubit.logOut(context: context);
                   },

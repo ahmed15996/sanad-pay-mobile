@@ -33,7 +33,7 @@ void showToast({
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: toastColor(state),
-      textColor: AppColors.blackColor,
+      textColor: AppColors.whiteColor,
       fontAsset: "assets/fonts/Manrope-Regular.ttf",
       fontSize: AppFonts.t15,
     );

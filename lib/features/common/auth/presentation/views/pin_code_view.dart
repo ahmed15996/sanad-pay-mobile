@@ -10,7 +10,7 @@ import '../../../../../core/framework/spaces.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../generated/locale_keys.g.dart';
 import '../../data/arguments/pin_code_argument.dart';
-import '../../data/params/check_otp_param.dart';
+import '../../data/params/verify_code_param.dart';
 import '../cubits/pin_code_cubit/pin_code_cubit.dart';
 import '../widgets/pin_code_widgets/custom_code_sent_success_widget.dart';
 import '../widgets/pin_code_widgets/custom_not_send_code_and_resend.dart';
@@ -34,7 +34,7 @@ class PinCodeView extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsetsDirectional.only(
                       start: 24.w,
-                      top: 40.h,
+                      top: 30.h,
                     ),
                     child: Align(
                       alignment: AlignmentDirectional.topStart,
@@ -67,18 +67,14 @@ class PinCodeView extends StatelessWidget {
                       Spacer(),
                       CustomButton(
                         onPressed: () {
-                          context.pushWithNamed(Routes.createAccView);
-                          // if (cubit.formKey.currentState!.validate()) {
-                          //
-                          //     cubit.checkOtp(
-                          //       context: context,
-                          //       param: CheckOtpParam(
-                          //         mobile: argument.phone,
-                          //         code: cubit.pinCtrl.text,
-                          //       ),
-                          //     );
-                          //
-                          // }
+                          if (cubit.formKey.currentState!.validate()) {
+
+                              cubit.verifyCode(
+                                context: context,
+                                argument: argument,
+                              );
+
+                          }
                         },
                         isLoading: state is PinCodeLoading,
                         text: LocaleKeys.verify.tr(),

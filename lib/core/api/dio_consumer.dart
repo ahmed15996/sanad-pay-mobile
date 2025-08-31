@@ -60,14 +60,14 @@ class DioApiConsumer extends ApiConsumer {
     if (token.isNotEmpty) {
       return {
         'Accept': 'application/json',
-        'Accept-Language': lang,
+        'lang': lang,
         "app-api-key": AppConstants.apiKey,
         'Authorization': 'Bearer $token'
       };
     } else {
       return {
         'Accept': 'application/json',
-        'Accept-Language': lang,
+        'lang': lang,
         "app-api-key": AppConstants.apiKey,
         if (sendToken != null) 'Authorization': 'Bearer $sendToken'
       };

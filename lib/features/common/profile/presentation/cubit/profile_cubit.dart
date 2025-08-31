@@ -2,30 +2,29 @@ import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sanad/core/util/extensions/navigation.dart';
-import 'package:sanad/features/common/profile/data/repository/setting_repository.dart';
+import 'package:sanad/features/common/profile/data/models/app_settings_model.dart';
+import 'package:sanad/features/common/profile/data/repository/profile_repository.dart';
 import '../../../../../core/constants/app_cached.dart';
-import '../../../../../core/framework/app_firebase.dart';
 import '../../../../../core/local/shared_preferences/shared_pref_services.dart';
 import '../../../../../core/util/routing/routes.dart';
 import '../../../../../core/widgets/custom_toast.dart';
 import '../../../auth/data/models/user_model.dart';
-import '../../data/models/social_media_model.dart';
+import 'package:local_auth/local_auth.dart';
 
 part 'profile_state.dart';
 
 @injectable
 class ProfileCubit extends Cubit<ProfileState> {
   final SharedPrefServices appPref;
-  final SettingRepository repository;
-  final AppFirebase appFirebase;
+  final ProfileRepository repository;
 
   ProfileCubit(
     this.appPref,
     this.repository,
-    this.appFirebase,
   ) : super(ProfileInitial());
 
   void saveChanges(BuildContext context) {
@@ -41,9 +40,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   void logOut({required BuildContext context}) async {
     emit(LogOutLoading());
-    var result = await repository.logOut(
-        await appFirebase.getFirebaseToken() ?? ""
-    );
+    var result = await repository.logOut();
     result.fold(
       (failure) {
         showToast(text: failure.message, state: ToastStates.error);
@@ -71,13 +68,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  bool? isNotify;
-
-  void changeNotify() {
-    isNotify = !isNotify!;
-    emit(ChangeNotifySuccess());
-  }
-
   bool? isHasFaceId;
 
   void changeHasFaceId() {
@@ -88,48 +78,34 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   bool isAuthenticated = false;
 
-  // Future<void> checkAuthentication() async {
-  //   final LocalAuthentication auth = LocalAuthentication();
-  //   bool canCheckBiometrics = await auth.canCheckBiometrics;
-  //   bool isDeviceSupported = await auth.isDeviceSupported();
-  //   isAuthenticated = canCheckBiometrics && isDeviceSupported;
-  //   debugPrint(
-  //       "isFaceIdNotify >>> ${appPref.getData(key: AppCached.isFaceIdNotify)}");
-  //   emit(CheckAuthentication());
-  // }
+  Future<void> checkAuthentication() async {
+    try{
+      final LocalAuthentication auth = LocalAuthentication();
+      bool canCheckBiometrics = await auth.canCheckBiometrics;
+      bool isDeviceSupported = await auth.isDeviceSupported();
+      isAuthenticated = canCheckBiometrics && isDeviceSupported;
+      debugPrint(
+          "isFaceIdNotify >>> ${appPref.getData(key: AppCached.isFaceIdNotify)}");
+      emit(CheckAuthentication());
+    }on PlatformException {
+      // ...
+    }catch(e){
+      debugPrint(e.toString());
 
-
-  SocialMediaModel? socialMediaModel;
-  String? token;
-
-  void getToken() async {
-    token = await appPref.getData(key: AppCached.token) ?? "";
+    }
   }
 
-  void fetchSocialMedia() async {
-    emit(GetDataLoading());
-    getToken();
-    var result = await repository.fetchSocialMedias();
-    result.fold(
-      (failure) {
-        emit(GetDataFailure(error: failure.message));
-      },
-      (socialMediaModel) async {
-        this.socialMediaModel = socialMediaModel;
-        if (token!.isNotEmpty) {
-          fetchUserData();
-        } else {
-          emit(DeleteAccAndLogOutSuccess());
-        }
-      },
-    );
-  }
+
+  String get token => appPref.getData(key: AppCached.token) ?? "";
+
 
   UserModel? userModel;
+  AppSettingsModel? appSettingsModel;
 
   void fetchUserData() async {
+
     emit(GetDataLoading());
-    var result = await repository.fetchUserAuth();
+    var result = await repository.fetchUserProfile();
     result.fold(
       (failure) {
         emit(GetDataFailure(error: failure.message));
@@ -144,24 +120,26 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
   }
 
-  // void goLink({required String link}) async {
-  //   Uri launchUri = Uri.parse(link);
-  //   try {
-  //     if (await canLaunchUrl(launchUri)) {
-  //       await launchUrl(
-  //         launchUri,
-  //         mode: LaunchMode.externalApplication,
-  //       );
-  //     } else {
-  //       showToast(
-  //           text: 'Could not launch $launchUri', state: ToastStates.error);
-  //       emit(DeleteAccAndLogOutFailure());
-  //     }
-  //   } catch (e) {
-  //     showToast(text: 'Could not launch $launchUri', state: ToastStates.error);
-  //     emit(DeleteAccAndLogOutFailure());
-  //   }
-  // }
+  void fetchAppSettings() async {
+
+    emit(GetDataLoading());
+    var result = await repository.fetchAppSettings();
+    result.fold(
+      (failure) {
+        emit(GetDataFailure(error: failure.message));
+      },
+      (appSettingsModel) {
+        this.appSettingsModel = appSettingsModel;
+        if(token.isNotEmpty) {
+          fetchUserData();
+        }else{
+          emit(DeleteAccAndLogOutSuccess());
+        }
+
+      },
+    );
+  }
+
 
   void clearUserData({
     required BuildContext context,

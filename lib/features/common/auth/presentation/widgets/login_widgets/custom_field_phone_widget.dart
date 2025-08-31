@@ -16,9 +16,10 @@ import '../../../../../../generated/locale_keys.g.dart';
 class CustomFieldPhoneWidget extends StatefulWidget {
   final PhoneFieldController phoneController;
   final double? paddingVerticalValue, borderRadiusValue;
-  final bool isHide,isEnabled;
+  final bool isHide,isEnabled,showPrefix;
   final Color? fillColor, borderColor;
   final Widget? suffixWidget;
+  final String? hintText;
 
   const CustomFieldPhoneWidget({
     super.key,
@@ -27,9 +28,10 @@ class CustomFieldPhoneWidget extends StatefulWidget {
     this.borderRadiusValue,
     this.isHide = false,
     this.isEnabled = true,
+    this.showPrefix = true,
     this.fillColor,
     this.borderColor,
-    this.suffixWidget,
+    this.suffixWidget, this.hintText,
   });
 
   @override
@@ -71,41 +73,40 @@ class _CustomFieldPhoneWidgetState extends State<CustomFieldPhoneWidget> {
               color: widget.borderColor ?? borderColor(isHide: widget.isHide),
             ),
           ),
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: TextFormField(
-              enabled: widget.isEnabled,
-              controller: widget.phoneController.controller,
+          child: TextFormField(
+            enabled: widget.isEnabled,
+            controller: widget.phoneController.controller,
 
-              style: AppTextStyles.textStyle12.copyWith(
-                fontWeight: FontWeight.w500,
-                color: AppColors.darkSecondaryColor
+            style: AppTextStyles.textStyle12.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColors.darkSecondaryColor
+            ),
+            onChanged: (String? value) {
+              if (value != null) {
+                widget.phoneController.validatePhoneField();
+              }
+            },
+            onTapOutside: (event) {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              isDense: true,
+              hintText: widget.hintText ?? LocaleKeys.mobileNumber.tr(),
+              enabledBorder: buildOutlineInputBorder(
+                widget.borderColor
               ),
-              onChanged: (String? value) {
-                if (value != null) {
-                  widget.phoneController.validatePhoneField();
-                }
-              },
-              onTapOutside: (event) {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                isDense: true,
-                hintText: LocaleKeys.mobileNumber.tr(),
-                enabledBorder: buildOutlineInputBorder(
+              focusedBorder: buildOutlineInputBorder(
                   widget.borderColor
-                ),
-                focusedBorder: buildOutlineInputBorder(
-                    widget.borderColor
-                ),
-                prefixIcon: SvgPicture.asset(AppAssets.phone,fit: BoxFit.scaleDown,),
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 17.h,
-                  horizontal: 20.w,
-                ),
+              ),
+              prefixIcon: widget.showPrefix ? SvgPicture.asset(AppAssets.phone,fit: BoxFit.scaleDown,) : null,
+              suffixIcon: widget.suffixWidget,
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 17.h,
+                horizontal: 20.w,
               ),
             ),
           ),

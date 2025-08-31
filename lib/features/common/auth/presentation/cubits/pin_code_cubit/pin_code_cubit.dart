@@ -4,12 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sanad/core/util/extensions/navigation.dart';
+import 'package:sanad/features/common/auth/data/arguments/create_acc_argument.dart';
+import 'package:sanad/features/common/bottom_nav/data/arguments/bottom_nav_argument.dart';
 import '../../../../../../core/framework/app_firebase.dart';
 import '../../../../../../core/util/routing/routes.dart';
 import '../../../../../../core/widgets/custom_toast.dart';
 import '../../../data/arguments/pin_code_argument.dart';
 import '../../../data/models/user_model.dart';
-import '../../../data/params/check_otp_param.dart';
+import '../../../data/params/verify_code_param.dart';
 import '../../../data/params/send_code_param.dart';
 import '../../../data/repository/auth_repository/auth_repository.dart';
 part 'pin_code_state.dart';
@@ -30,7 +32,7 @@ class PinCodeCubit extends Cubit<PinCodeState> {
   }) async {
     emit(ResendCodeLoading());
     var result = await repository.sendCode(
-      param: SendCodeParam(mobile: argument.phone),
+      param: SendCodeParam(phone: argument.phone),
     );
     result.fold(
       (failure) {
@@ -44,25 +46,32 @@ class PinCodeCubit extends Cubit<PinCodeState> {
     );
   }
 
-
-  void checkOtp({
+  void verifyCode({
     required BuildContext context,
-    required CheckOtpParam param,
+    required PinCodeArgument argument,
+
   }) async {
     emit(PinCodeLoading());
-    var result = await repository.checkOtp(param: param);
+    var result = await repository.verifyCode(param: VerifyCodeParam(phone: argument.phone, code: pinCtrl.text, fcm: (await appFirebase.getFirebaseToken()) ?? ""));
     result.fold(
       (failure) {
         showToast(text: failure.message, state: ToastStates.error);
         emit(PinCodeFailure());
       },
-      (message) {
+      (verifyCodeModel) {
         emit(PinCodeSuccess());
-        showToast(text: message, state: ToastStates.success);
-        // context.pushAndRemoveUntilWithNamed(
-        //   Routes.resetPasswordView,
-        //   arguments: ResetPasswordArguments(phone: param.mobile),
-        // );
+        if (verifyCodeModel.action == "login") {
+          saveDataUser(
+            token: verifyCodeModel.token!,
+            userModel: verifyCodeModel.user!,
+            context: context,
+          );
+        } else {
+          context.pushWithNamed(
+            Routes.createAccUserView,
+            arguments: CreateAccArgument(phone: argument.phone),
+          );
+        }
       },
     );
   }
@@ -80,7 +89,7 @@ class PinCodeCubit extends Cubit<PinCodeState> {
         emit(SaveDataFailure());
       },
       (r) {
-        context.pushAndRemoveUntilWithNamed(Routes.bottomNavView);
+        context.pushAndRemoveUntilWithNamed(Routes.bottomNavView,arguments: BottomNavArgument(isUser: userModel.type == "user"));
         emit(PinCodeSuccess());
       },
     );

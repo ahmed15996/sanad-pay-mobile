@@ -22,7 +22,7 @@ class SelectLanguageView extends StatelessWidget {
           Expanded(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsetsDirectional.only(start: 24.w, top: 40.h),
+                padding: EdgeInsetsDirectional.only(start: 24.w, top: 20.h),
                 child: Align(
                   alignment: AlignmentDirectional.topStart,
                   child: Text(
@@ -34,7 +34,7 @@ class SelectLanguageView extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 64.w),
               decoration: BoxDecoration(
@@ -49,14 +49,14 @@ class SelectLanguageView extends StatelessWidget {
                     'Please select language',
                     textAlign: TextAlign.center,
                     style: AppTextStyles.textStyle16.copyWith(
-                      color: AppColors.darkSecondaryColor,
+                      color: AppColors.rhinoDark.shade400,
                     ),
                   ),
                   Text(
                     'من فضلك حدد لغة التطبيق',
                     textAlign: TextAlign.center,
                     style: AppTextStyles.textStyle16.copyWith(
-                      color: AppColors.darkSecondaryColor,
+                      color: AppColors.rhinoDark.shade400,
                     ),
                   ),
 

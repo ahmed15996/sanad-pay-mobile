@@ -3,6 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 import '../../generated/locale_keys.g.dart';
 
 class AppValidator {
+  static String? defaultValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return LocaleKeys.emptyField.tr();
+    }
+    return null;
+  }
   static String? nameValidator(String? value) {
     if (value == null || value.isEmpty) {
       return LocaleKeys.emptyName.tr();
@@ -10,12 +16,12 @@ class AppValidator {
     return null;
   }
 
-  static String? fullEmailValidator(String? value) {
-    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
-    if (value == null || value.isEmpty) {
-      return LocaleKeys.emptyEmail.tr();
-    } else if (!emailRegex.hasMatch(value)) {
-      return LocaleKeys.validEmail.tr();
+  static String? emailValidator(String? value) {
+    if(value != null && value.isNotEmpty){
+      final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+      if (!emailRegex.hasMatch(value)) {
+        return LocaleKeys.validEmail.tr();
+      }
     }
     return null;
   }
@@ -30,10 +36,13 @@ class AppValidator {
     return null;
   }
 
-  // static String? suggestionOrComplaintValidator(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return LocaleKeys.emptySuggestionComplaintMessage.tr();
-  //   }
-  //   return null;
-  // }
+  static descSuggestValidator() {
+    return (value) {
+      if (value == null || value.isEmpty) {
+        return LocaleKeys.emptyDescSuggest.tr();
+      }
+      return null;
+    };
+  }
+
 }

@@ -48,8 +48,8 @@ class CustomPinCodeWidget extends StatelessWidget {
 
   PinTheme buildPinTheme() {
     return PinTheme(
-      width: 46.w,
-      height: 58.h,
+      width: 50.w,
+      height: 60.h,
       textStyle: AppTextStyles.textStyle14.copyWith(
         color: AppColors.darkSecondaryColor,
       ),

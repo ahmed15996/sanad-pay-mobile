@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanad/core/util/extensions/navigation.dart';
+import 'package:sanad/features/common/bottom_nav/data/arguments/bottom_nav_argument.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/framework/spaces.dart';
 import '../../../../../core/util/routing/routes.dart';
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../generated/locale_keys.g.dart';
-import '../../data/arguments/pin_code_argument.dart';
 import '../cubits/login_cubit/login_cubit.dart';
 import '../widgets/login_widgets/custom_field_phone_widget.dart';
 import '../widgets/login_widgets/custom_login_header_widget.dart';
@@ -29,7 +29,7 @@ class LoginView extends StatelessWidget {
               Expanded(
                 child: SafeArea(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.only(start: 24.w, top: 40.h),
+                    padding: EdgeInsetsDirectional.only(start: 24.w, top: 30.h),
                     child: Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
@@ -59,7 +59,6 @@ class LoginView extends StatelessWidget {
                       children: [
                         CustomLoginHeaderWidget(),
                         heightSpace(170),
-
                         CustomFieldPhoneWidget(
                           phoneController: cubit.phoneCtrl,
                           fillColor: AppColors.whiteColor,
@@ -68,21 +67,9 @@ class LoginView extends StatelessWidget {
                         heightSpace(67),
                         CustomButton(
                           onPressed: () {
-                            context.pushWithNamed(
-                              Routes.pinCodeView,
-                              arguments: PinCodeArgument(
-                                phone: cubit.phoneCtrl.controller.text,
-                              ),
-                            );
-                            // if (cubit.phoneCtrl.controller.text.isEmpty) {
-                            //   if (cubit.formKey.currentState!.validate()) {
-                            //     cubit.signIn(context: context);
-                            //   }
-                            // } else {
-                            //   if (cubit.phoneCtrl.validatePhoneField()) {
-                            //     cubit.sendCode(context);
-                            //   }
-                            // }
+                            if (cubit.phoneCtrl.validatePhoneField()) {
+                              cubit.sendCode(context);
+                            }
                           },
                           text: LocaleKeys.login.tr(),
                           isLoading: state is SignInLoading,
@@ -90,13 +77,16 @@ class LoginView extends StatelessWidget {
                         heightSpace(18),
                         CustomButton(
                           text: LocaleKeys.registerAsStore.tr(),
+                          onPressed: (){
+                            context.pushWithNamed(Routes.createAccStoreView);
+                          },
                           backgroundColor: AppColors.secondaryColor,
                         ),
                         heightSpace(18),
                         Center(
                           child: TextButton(
                             onPressed: () {
-                              context.pushWithNamed(Routes.bottomNavView);
+                              context.pushReplacementWithNamed(Routes.bottomNavView,arguments: BottomNavArgument(isUser: true,index: 0));
                             },
                             child: Text(
                               LocaleKeys.continueAsGuest.tr(),

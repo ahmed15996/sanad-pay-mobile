@@ -5,6 +5,7 @@ import 'package:sanad/core/util/extensions/navigation.dart';
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/framework/spaces.dart';
 import '../../../../../../core/widgets/custom_button.dart';
+import '../../../../../../generated/locale_keys.g.dart';
 import '../../cubit/profile_cubit.dart';
 
 class CustomDialogButtonsWidget extends StatelessWidget {
@@ -29,7 +30,7 @@ class CustomDialogButtonsWidget extends StatelessWidget {
             height: 40.h,
             onPressed: confirmTap,
             text: confirmText,
-            backgroundColor: AppColors.redColor,
+            backgroundColor: AppColors.primaryColor,
             isLoading: state is LogOutLoading || state is DeleteAccLoading,
           ),
         ),
@@ -41,7 +42,7 @@ class CustomDialogButtonsWidget extends StatelessWidget {
             onPressed: () {
               context.pop();
             },
-            text: "cancel",
+            text: LocaleKeys.cancel.tr(),
           ),
         )
       ],
