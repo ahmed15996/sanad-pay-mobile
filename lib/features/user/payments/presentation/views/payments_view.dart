@@ -60,7 +60,7 @@ class PaymentsView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomTabBarWidget(),
-                            heightSpace(24),
+                            heightSpace(23),
                             Expanded(
                               child: TabBarView(
                                 physics: NeverScrollableScrollPhysics(),

@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sanad/features/common/auth/data/models/user_model.dart';
 import 'package:sanad/features/user/home/data/models/home_model.dart';
+import 'package:sanad/features/user/home/data/params/home_user_params.dart';
 
 import '../../../../../core/errors/exceptions.dart';
 import '../../../../../core/errors/failures.dart';
@@ -16,9 +17,9 @@ class HomeUserRepositoryImpl extends HomeUserRepository {
   HomeUserRepositoryImpl({required this.homeUserRemoteDataSource});
 
   @override
-  Future<Either<Failure, HomeModel>> fetchHome() async {
+  Future<Either<Failure, HomeModel>> fetchHome(HomeUserParams params) async {
     try {
-      HomeModel homeModel = await homeUserRemoteDataSource.fetchHome();
+      HomeModel homeModel = await homeUserRemoteDataSource.fetchHome(params);
       return Right(homeModel);
     } on ServerException catch (exception) {
       return Left(ApiFailure(exception.message!));

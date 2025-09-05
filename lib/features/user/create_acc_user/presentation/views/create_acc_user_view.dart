@@ -84,7 +84,10 @@ class CreateAccUserView extends StatelessWidget {
                                 CustomRowAcceptTermsAndCondWidget(),
                                 heightSpace(67),
                                 CustomButton(
-                                  isDisabled: !(cubit.formKey.currentState?.validate() ?? false),
+                                  isDisabled:
+                                      !(cubit.formKey.currentState
+                                              ?.validate() ??
+                                          false),
                                   onPressed: () {
                                     if (cubit.formKey.currentState!
                                         .validate()) {
@@ -95,7 +98,9 @@ class CreateAccUserView extends StatelessWidget {
                                     }
                                   },
                                   isLoading: state is CreateAccLoading,
-                                  text: LocaleKeys.createNewAccount.tr().replaceAll("\n", " "),
+                                  text: LocaleKeys.createNewAccount
+                                      .tr()
+                                      .replaceAll("\n", " "),
                                 ),
                                 heightSpace(40),
                               ],

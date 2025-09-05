@@ -25,12 +25,12 @@ class CustomInputStoreOwnerWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding:  EdgeInsetsDirectional.only(start: 25.w),
+          padding: EdgeInsetsDirectional.only(start: 25.w),
           child: Text(
             LocaleKeys.ownerInformationForCommercial.tr(),
             style: AppTextStyles.textStyle16.copyWith(
               fontWeight: FontWeight.bold,
-              color: AppColors.blackColor
+              color: AppColors.blackColor,
             ),
           ),
         ),
@@ -38,31 +38,31 @@ class CustomInputStoreOwnerWidget extends StatelessWidget {
         heightSpace(39),
         CustomTextFormField(
           ctrl: cubit.storeOwnerNameCtrl,
-          validator: AppValidator.defaultValidator,
+          validator: AppValidator.storeOwnerNameValidator,
           hintText: LocaleKeys.enterStoreOwnerName.tr(),
         ),
         heightSpace(16),
         CustomFieldPhoneWidget(
           phoneController: cubit.phoneCtrl,
-          showPrefix: false,
           fillColor: AppColors.whiteColor,
           hintText: LocaleKeys.enterPhoneNumber.tr(),
-          suffixWidget: Padding(
-            padding:  EdgeInsetsDirectional.only(end: 24.w),
+          prefixWidget: Padding(
+            padding: EdgeInsetsDirectional.only(start: 16.w),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  "+966",
-                  style: AppTextStyles.textStyle12.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.blackColor
-                  ),
-                ),
+                SvgPicture.asset(AppAssets.saudi),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 7),
-                  child: SvgPicture.asset(AppAssets.saudi),
-                )
+                  child: Text(
+                    "+966",
+                    style: AppTextStyles.textStyle12.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.blackColor,
+                    ),
+                  ),
+                ),
+
               ],
             ),
           ),
@@ -70,19 +70,19 @@ class CustomInputStoreOwnerWidget extends StatelessWidget {
         heightSpace(16),
         CustomTextFormField(
           ctrl: cubit.commerceNumCtrl,
-          validator: AppValidator.defaultValidator,
+          validator: AppValidator.commercialNumberValidator,
           hintText: LocaleKeys.enterCommercialNumber.tr(),
         ),
         heightSpace(16),
         CustomTextFormField(
           readOnly: true,
           ctrl: cubit.imageCommerceCtrl,
-          validator: AppValidator.defaultValidator,
+          validator: AppValidator.commercialImageValidator,
           hintText: LocaleKeys.attachCommercialImage.tr(),
           onTap: () {
-            cubit.pickImage(context: context,type: 0);
+            cubit.pickImage(context: context, type: 0);
           },
-          suffixIcon: SvgPicture.asset(AppAssets.attach,fit: BoxFit.scaleDown,) ,
+          suffixIcon: SvgPicture.asset(AppAssets.attach, fit: BoxFit.scaleDown),
         ),
         heightSpace(16),
         if (cubit.imageCommerce != null)
@@ -96,5 +96,3 @@ class CustomInputStoreOwnerWidget extends StatelessWidget {
     );
   }
 }
-
-

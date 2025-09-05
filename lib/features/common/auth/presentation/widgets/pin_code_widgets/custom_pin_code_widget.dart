@@ -51,14 +51,17 @@ class CustomPinCodeWidget extends StatelessWidget {
       width: 50.w,
       height: 60.h,
       textStyle: AppTextStyles.textStyle14.copyWith(
-        color: AppColors.darkSecondaryColor,
+        color: AppColors.rhinoDark.shade500,
       ),
       padding: EdgeInsets.zero,
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.r),
         color: AppColors.whiteColor,
-        boxShadow: [AppShadows.defaultShadow],
+        boxShadow: [
+          AppShadows.defaultShadow,
+          AppShadows.defaultShadow,
+        ],
       ),
     );
   }

@@ -22,7 +22,7 @@ class ApiConstants {
   static const transactions = 'wallet/transactions';
   static const financingRequest = 'finance/request';
   static const logout = 'auth/logout';
-  static const deleteAcc = 'profile/delete';
+  static const deleteAcc = 'profile/delete'; 
   static const appSettings = 'settings';
   static const terms = 'pages/terms_and_condations';
   static const privacy = 'pages/privacy_policy';

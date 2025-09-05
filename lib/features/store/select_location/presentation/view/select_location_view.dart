@@ -46,7 +46,7 @@ class _SelectLocationViewState extends State<SelectLocationView> {
               child: Align(
                 alignment: AlignmentDirectional.topStart,
                 child: Padding(
-                  padding: EdgeInsetsDirectional.only(start: 24.w, top: 30.h),
+                  padding: EdgeInsetsDirectional.only(start: 24.w, top: 9.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -71,7 +71,6 @@ class _SelectLocationViewState extends State<SelectLocationView> {
                         LocaleKeys.selectStoreLocation.tr(),
                         style: AppTextStyles.textStyle32,
                       ),
-                      heightSpace(10),
                       Text(
                         LocaleKeys.detectStoreLocationOnMap.tr(),
                         style: AppTextStyles.textStyle16,
@@ -83,7 +82,7 @@ class _SelectLocationViewState extends State<SelectLocationView> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 4,
             child: BlocBuilder<SelectLocationCubit, SelectLocationState>(
               builder: (context, state) {
                 final cubit = BlocProvider.of<SelectLocationCubit>(context);

@@ -49,7 +49,7 @@ class _CustomSearchLocationTextFieldWidgetState
           ),
           hintText: LocaleKeys.searchCurrentLocation.tr(),
           hintStyle:
-              AppTextStyles.textStyle14.copyWith(color: AppColors.lightGreyColor),
+              AppTextStyles.textStyle12.copyWith(color: AppColors.lightGreyColor),
           focusedBorder: buildOutlineInputBorder(),
           enabledBorder: buildOutlineInputBorder(),
           contentPadding:

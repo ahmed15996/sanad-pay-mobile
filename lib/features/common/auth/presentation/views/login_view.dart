@@ -14,9 +14,21 @@ import '../cubits/login_cubit/login_cubit.dart';
 import '../widgets/login_widgets/custom_field_phone_widget.dart';
 import '../widgets/login_widgets/custom_login_header_widget.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<SignInCubit>().addListener();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +75,7 @@ class LoginView extends StatelessWidget {
                           phoneController: cubit.phoneCtrl,
                           fillColor: AppColors.whiteColor,
                           borderColor: AppColors.transparentColor,
+                          prefixWidget: null,
                         ),
                         heightSpace(67),
                         CustomButton(
@@ -71,6 +84,7 @@ class LoginView extends StatelessWidget {
                               cubit.sendCode(context);
                             }
                           },
+                          isDisabled: !cubit.isButtonEnabled,
                           text: LocaleKeys.login.tr(),
                           isLoading: state is SignInLoading,
                         ),

@@ -16,6 +16,7 @@ class CustomStoreDetailsDataWidget extends StatelessWidget {
     return  Padding(
       padding:  EdgeInsets.symmetric(horizontal: 24.w),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomImageNetwork(
             image: storeModel.logo,
@@ -35,6 +36,7 @@ class CustomStoreDetailsDataWidget extends StatelessWidget {
                     color: AppColors.secondaryColor,
                   ),
                 ),
+                heightSpace(10),
                 Text(
                   storeModel.description ?? "",
                   style: AppTextStyles.textStyle12.copyWith(
@@ -42,6 +44,7 @@ class CustomStoreDetailsDataWidget extends StatelessWidget {
                     color: AppColors.rhinoDark.shade300,
                   ),
                 ),
+                heightSpace(10),
               ],
             ),
           ),

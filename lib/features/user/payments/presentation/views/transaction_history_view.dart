@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sanad/core/constants/app_assets.dart';
 import 'package:sanad/core/constants/app_text_styles.dart';
+import 'package:sanad/core/widgets/custom_empty_data.dart';
 import 'package:sanad/core/widgets/custom_image_network.dart';
 import 'package:sanad/core/widgets/custom_loading.dart';
 import 'package:sanad/features/user/payments/presentation/cubits/transaction_history_cubit/transaction_history_cubit.dart';
@@ -20,21 +22,28 @@ class TransactionHistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: CustomAppbar(title: LocaleKeys.transactionHistory.tr()),
-      body: BlocBuilder<TransactionHistoryCubit, TransactionHistoryState>(builder: (context, state) {
-        var cubit = context.read<TransactionHistoryCubit>();
-        if(state is GetTransactionHistoryLoading){
-          return CustomLoading();
-        }else if(state is GetTransactionHistoryFailure){
-          return CustomError(error: state.error, retry: (){
-            cubit.fetchTransactionHistory();
-          },);
-        }else{
-          return CustomTransactionHistoryListWidget();
-        }
-      },)
+      body: BlocBuilder<TransactionHistoryCubit, TransactionHistoryState>(
+        builder: (context, state) {
+          var cubit = context.read<TransactionHistoryCubit>();
+          if (state is GetTransactionHistoryLoading) {
+            return CustomLoading();
+          } else if (state is GetTransactionHistoryFailure) {
+            return CustomError(
+              error: state.error,
+              retry: () {
+                cubit.fetchTransactionHistory();
+              },
+            );
+          } else {
+            return cubit.transactionHistory.isEmpty
+                ? CustomEmptyData(image: AppAssets.emptyOffers)
+                : CustomTransactionHistoryListWidget();
+          }
+        },
+      ),
     );
   }
 }

@@ -10,12 +10,14 @@ class CustomLatestOrdersListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ListView.separated(
+    return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: latestOrders.length,
 
       separatorBuilder: (context, index) => heightSpace(21),
-      itemBuilder: (context, index) => CustomLatestOrderItemWidget(orderModel: latestOrders[index],));
+      itemBuilder: (context, index) =>
+          CustomLatestOrderItemWidget(orderModel: latestOrders[index]),
+    );
   }
 }

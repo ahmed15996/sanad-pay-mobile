@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sanad/core/util/extensions/navigation.dart';
+import 'package:sanad/core/util/extensions/on_tap.dart';
+import 'package:sanad/core/util/routing/routes.dart';
 import 'package:sanad/features/user/offers/data/models/offer_model.dart';
+import 'package:sanad/features/user/store_details/data/arguments/store_details_arguments.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
@@ -22,8 +26,14 @@ class CustomOfferItemWidget extends StatelessWidget {
         color: AppColors.whiteColor,
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomImageNetwork(image: offerModel.image,radiusValue: 12,widthImage: 90.w,heightImage: 90.h,),
+          CustomImageNetwork(
+            image: offerModel.image,
+            radiusValue: 12,
+            widthImage: 90.w,
+            heightImage: 90.h,
+          ),
           widthSpace(16.w),
           Expanded(
             child: Column(
@@ -32,31 +42,44 @@ class CustomOfferItemWidget extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(offerModel.name,
+                      child: Text(
+                        offerModel.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.textStyle16.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: AppColors.secondaryColor
-                      ),),
+                          color: AppColors.secondaryColor,
+                        ),
+                      ),
                     ),
-                    Text("${offerModel.discount}% ${LocaleKeys.off.tr()}",style: AppTextStyles.textStyle14.copyWith(
+                    Text(
+                      "${offerModel.discount}% ${LocaleKeys.off.tr()}",
+                      style: AppTextStyles.textStyle14.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.secondaryColor
-                    ),),
+                        color: AppColors.secondaryColor,
+                      ),
+                    ),
                   ],
                 ),
                 heightSpace(4),
-                Text(offerModel.date,style: AppTextStyles.textStyle16.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.rhinoDark.shade300
-                ),),
-
+                Text(
+                  offerModel.date,
+                  style: AppTextStyles.textStyle14.copyWith(
+                    color: AppColors.rhinoDark.shade300,
+                  ),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
+    ).onTap(
+      function: () {
+        context.pushWithNamed(
+          Routes.storeDetailsView,
+          arguments: StoreDetailsArguments(storeId: offerModel.storeId),
+        );
+      },
     );
   }
 }

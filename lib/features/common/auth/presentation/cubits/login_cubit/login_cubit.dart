@@ -21,6 +21,14 @@ class SignInCubit extends Cubit<SignInState> {
 
   PhoneFieldController phoneCtrl = PhoneFieldController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  bool isButtonEnabled = false;
+
+  void addListener(){
+    phoneCtrl.controller.addListener(() {
+      isButtonEnabled = phoneCtrl.validatePhoneField();
+      emit(SignInSuccess());
+    },);
+  }
 
 
 
@@ -36,7 +44,7 @@ class SignInCubit extends Cubit<SignInState> {
       },
       (message) {
         emit(SignInSuccess());
-        showToast(text: message, state: ToastStates.success);
+        // showToast(text: message, state: ToastStates.success);
         context.pushWithNamed(
           Routes.pinCodeView,
           arguments: PinCodeArgument(

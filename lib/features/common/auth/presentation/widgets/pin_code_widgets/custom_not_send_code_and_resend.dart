@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart' as localization;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanad/core/constants/app_colors.dart';
 import 'package:sanad/core/util/extensions/on_tap.dart';
 import '../../../../../../core/constants/app_text_styles.dart';
+import '../../../../../../core/framework/spaces.dart';
 import '../../../../../../generated/locale_keys.g.dart';
 import '../../../data/arguments/pin_code_argument.dart';
 import '../../cubits/pin_code_cubit/pin_code_cubit.dart';
@@ -23,7 +25,7 @@ class CustomNotSendCodeAndResend extends StatefulWidget {
 class _CustomNotSendCodeAndResendState
     extends State<CustomNotSendCodeAndResend> {
   var interval = const Duration(seconds: 1);
-  int timerMaxSeconds = 60;
+  int timerMaxSeconds = 119;
   int currentSeconds = 0;
   late Timer timer;
 
@@ -73,13 +75,26 @@ class _CustomNotSendCodeAndResendState
               );
             },
           )
-          : Text(
-            timerText,
-            textDirection: TextDirection.ltr,
-            style: AppTextStyles.textStyle16.copyWith(
-              fontWeight: FontWeight.w600,
-              color: AppColors.primaryColor
-            ),
+          : Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                LocaleKeys.resendCode.tr(),
+                style: AppTextStyles.textStyle16.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.rhinoDark.shade400
+                ),
+              ),
+              widthSpace(10.w),
+              Text(
+                timerText,
+                textDirection: TextDirection.ltr,
+                style: AppTextStyles.textStyle16.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primaryColor
+                ),
+              ),
+            ],
           ),
     );
   }

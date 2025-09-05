@@ -7,4 +7,9 @@ part of 'search_params.dart';
 // **************************************************************************
 
 Map<String, dynamic> _$SearchParamsToJson(SearchParams instance) =>
-    <String, dynamic>{'key': instance.key, 'page': instance.page};
+    <String, dynamic>{
+      'key': instance.key,
+      'page': instance.page,
+      'lat': instance.lat,
+      'long': instance.long,
+    };

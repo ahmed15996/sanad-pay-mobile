@@ -180,5 +180,30 @@ abstract class  LocaleKeys {
   static const emptyNotification = 'emptyNotification';
   static const emptyNotificationContent = 'emptyNotificationContent';
   static const emptySearch = 'emptySearch';
+  static const emptyNationalId = 'emptyNationalId';
+  static const emptyDateOfBirth = 'emptyDateOfBirth';
+  static const emptyOccupation = 'emptyOccupation';
+  static const emptyStartedJobDate = 'emptyStartedJobDate';
+  static const emptySalary = 'emptySalary';
+  static const emptyCity = 'emptyCity';
+  static const emptyCategory = 'emptyCategory';
+  static const loadFailed = 'loadFailed';
+  static const releaseToLoadMore = 'releaseToLoadMore';
+  static const emptyStoreName = 'emptyStoreName';
+  static const emptyStoreImageOrLogo = 'emptyStoreImageOrLogo';
+  static const emptyStoreBranchesNumber = 'emptyStoreBranchesNumber';
+  static const emptyStoreDescription = 'emptyStoreDescription';
+  static const emptyAddress = 'emptyAddress';
+  static const emptyStoreOwnerName = 'emptyStoreOwnerName';
+  static const emptyStoreLocation = 'emptyStoreLocation';
+  static const emptyCommercialNumber = 'emptyCommercialNumber';
+  static const emptyCommercialImage = 'emptyCommercialImage';
+  static const emptyJobStartHour = 'emptyJobStartHour';
+  static const emptyToHour = 'emptyToHour';
+  static const am = 'am';
+  static const pm = 'pm';
+  static const paymentRejected = 'paymentRejected';
+  static const paymentApproved = 'paymentApproved';
+  static const select = 'select';
 
 }

@@ -12,8 +12,7 @@ import '../../../cubits/payments_cubit/payments_cubit.dart';
 
 class CustomPaymentRequestButtonsWidget extends StatelessWidget {
   final int orderId;
-  final bool isFromNotification;
-  const CustomPaymentRequestButtonsWidget({super.key, required this.orderId, required this.isFromNotification});
+  const CustomPaymentRequestButtonsWidget({super.key, required this.orderId, });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,7 @@ class CustomPaymentRequestButtonsWidget extends StatelessWidget {
             text: LocaleKeys.accept.tr(),
             loadingColor: AppColors.primaryColor,
             onPressed: () {
-              cubit.accept(orderId, isFromNotification,context);
+              cubit.accept(orderId,context);
             },
             isLoading: state is AcceptLoading,
             style: AppTextStyles.textStyle16.copyWith(
@@ -47,7 +46,7 @@ class CustomPaymentRequestButtonsWidget extends StatelessWidget {
             text: LocaleKeys.reject.tr(),
             loadingColor: AppColors.primaryColor,
             onPressed: () {
-              cubit.reject(orderId,isFromNotification, context);
+              cubit.reject(orderId, context);
             },
             isLoading: state is RejectLoading,
             style: AppTextStyles.textStyle16.copyWith(

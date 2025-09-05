@@ -31,7 +31,7 @@ class FinancingStatusView extends StatelessWidget {
           Expanded(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsetsDirectional.only(start: 24.w, top: 10.h),
+                padding: EdgeInsetsDirectional.only(start: 24.w, top: 20.h),
                 child: Align(
                   alignment: AlignmentDirectional.topStart,
                   child: Column(
@@ -46,7 +46,7 @@ class FinancingStatusView extends StatelessWidget {
                           ,child: SvgPicture.asset(AppAssets.arrowBack,color: AppColors.whiteColor,)).onTap(function: () {
                             context.pushReplacementWithNamed(Routes.bottomNavView,arguments: BottomNavArgument(isUser: true,index: 0));
                           },),
-                      heightSpace(10),
+                      heightSpace(35),
                       Text(
                         financingStatusArguments.isSuccess
                             ? LocaleKeys.requestSubmittedSuccessfully.tr()
@@ -60,7 +60,7 @@ class FinancingStatusView extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 4,
+            flex: 3,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
               decoration: BoxDecoration(

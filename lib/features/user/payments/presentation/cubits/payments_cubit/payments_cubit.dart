@@ -54,7 +54,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
     );
   }
 
-  void accept(int orderId,bool isFromNotification, BuildContext context) async {
+  void accept(int orderId, BuildContext context) async {
     emit(AcceptLoading());
     var result = await repository.accept(orderId);
     result.fold(
@@ -64,20 +64,18 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       },
       (message) {
         showToast(text: message, state: ToastStates.success);
-        if(isFromNotification){
-          context.pop(arguments: true);
-        }else{
+
           context.pushAndRemoveUntilWithNamed(
             Routes.bottomNavView,
             arguments: BottomNavArgument(isUser: true, index: 0),
           );
-        }
+
         emit(AcceptSuccess());
       },
     );
   }
 
-  void reject(int orderId,bool isFromNotification, BuildContext context) async {
+  void reject(int orderId, BuildContext context) async {
     emit(RejectLoading());
     var result = await repository.reject(orderId);
     result.fold(
@@ -87,14 +85,11 @@ class PaymentsCubit extends Cubit<PaymentsState> {
       },
       (message) {
         showToast(text: message, state: ToastStates.success);
-        if(isFromNotification){
-          context.pop(arguments: true);
-        }else{
         context.pushAndRemoveUntilWithNamed(
           Routes.bottomNavView,
           arguments: BottomNavArgument(isUser: true, index: 0),
         );
-        }
+
         emit(RejectSuccess());
       },
     );

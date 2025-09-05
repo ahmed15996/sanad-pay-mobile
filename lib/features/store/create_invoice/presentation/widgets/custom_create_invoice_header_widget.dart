@@ -30,7 +30,7 @@ class CustomCreateInvoiceHeaderWidget extends StatelessWidget {
       padding: EdgeInsetsDirectional.only(
         start: 38.w,
         end: 25.w,
-        top: 30.h,
+        top: 20.h,
       ),
       child: Column(
         children: [
@@ -70,7 +70,7 @@ class CustomCreateInvoiceHeaderWidget extends StatelessWidget {
                       side: BorderSide(color: AppColors.whiteColor),
                     ),
                   ),
-                  padding: EdgeInsets.all(20.w),
+                  padding: EdgeInsets.all(40.w),
                   child: CustomImageNetwork(image: userModel.image)
                 ),
               ),
@@ -81,6 +81,7 @@ class CustomCreateInvoiceHeaderWidget extends StatelessWidget {
               ),
             ],
           ),
+          heightSpace(10.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

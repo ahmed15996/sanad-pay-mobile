@@ -28,7 +28,12 @@ class CustomInputCreateAccUserWidget extends StatelessWidget {
           CustomTextFormField(
             keyboardType: TextInputType.name,
             ctrl: cubit.nameCtrl,
-            prefixIcon: SvgPicture.asset(AppAssets.user, fit: BoxFit.scaleDown),
+            prefixIcon: SvgPicture.asset(
+              AppAssets.user,
+              fit: BoxFit.scaleDown,
+              width: 26.w,
+              height: 26.h,
+            ),
             fillColor: AppColors.whiteColor,
             validator: AppValidator.nameValidator,
             hintText: LocaleKeys.enterFullName.tr(),
@@ -38,13 +43,15 @@ class CustomInputCreateAccUserWidget extends StatelessWidget {
             ctrl: cubit.emailCtrl,
             prefixIcon: SvgPicture.asset(
               AppAssets.email,
+              width: 26.w,
+              height: 26.h,
               fit: BoxFit.scaleDown,
             ),
             suffixIcon: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding:  EdgeInsetsDirectional.only(end: 24.w),
+                  padding: EdgeInsetsDirectional.only(end: 24.w),
                   child: Text(
                     LocaleKeys.optional.tr(),
                     style: AppTextStyles.textStyle12.copyWith(
@@ -66,23 +73,19 @@ class CustomInputCreateAccUserWidget extends StatelessWidget {
             onChanged: (CityModel? value) {
               cubit.changeCityValue(value!);
             },
-            headerBuilder: (p0, city, p2) {
-              return Text(city.name);
-            },
-            listItemBuilder: (p0, city, p2, p3) {
-              return Text(city.name);
-            },
             fillColor: AppColors.whiteColor,
             borderColor: AppColors.transparentColor,
 
             prefixIcon: SvgPicture.asset(
               AppAssets.city,
               fit: BoxFit.scaleDown,
+              width: 26.w,
+              height: 26.h,
             ),
             hintText: LocaleKeys.city.tr(),
             value: cubit.selectedCityId,
             validator: (value) {
-              return AppValidator.defaultValidator(value?.name);
+              return AppValidator.cityValidator(value?.name);
             },
           ),
         ],

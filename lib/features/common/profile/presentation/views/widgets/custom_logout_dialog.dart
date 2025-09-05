@@ -68,7 +68,7 @@ class CustomLogoutDialog extends StatelessWidget {
               LocaleKeys.sureLogout.tr(),
               style: AppTextStyles.textStyle12.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: AppColors.blackColor
+                  color: AppColors.textColor
 
               ),
             ),

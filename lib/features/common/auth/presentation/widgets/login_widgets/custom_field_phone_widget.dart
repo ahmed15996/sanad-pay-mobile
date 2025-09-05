@@ -16,9 +16,10 @@ import '../../../../../../generated/locale_keys.g.dart';
 class CustomFieldPhoneWidget extends StatefulWidget {
   final PhoneFieldController phoneController;
   final double? paddingVerticalValue, borderRadiusValue;
-  final bool isHide,isEnabled,showPrefix;
+  final bool isHide,isEnabled;
   final Color? fillColor, borderColor;
   final Widget? suffixWidget;
+  final Widget? prefixWidget;
   final String? hintText;
 
   const CustomFieldPhoneWidget({
@@ -28,10 +29,11 @@ class CustomFieldPhoneWidget extends StatefulWidget {
     this.borderRadiusValue,
     this.isHide = false,
     this.isEnabled = true,
-    this.showPrefix = true,
     this.fillColor,
     this.borderColor,
-    this.suffixWidget, this.hintText,
+    this.suffixWidget,
+    this.prefixWidget,
+    this.hintText,
   });
 
   @override
@@ -102,7 +104,7 @@ class _CustomFieldPhoneWidgetState extends State<CustomFieldPhoneWidget> {
               focusedBorder: buildOutlineInputBorder(
                   widget.borderColor
               ),
-              prefixIcon: widget.showPrefix ? SvgPicture.asset(AppAssets.phone,fit: BoxFit.scaleDown,) : null,
+              prefixIcon: widget.prefixWidget  ?? SvgPicture.asset(AppAssets.phone,fit: BoxFit.scaleDown,),
               suffixIcon: widget.suffixWidget,
               contentPadding: EdgeInsets.symmetric(
                 vertical: 17.h,

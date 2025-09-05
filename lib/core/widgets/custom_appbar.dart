@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sanad/core/util/extensions/navigation.dart';
@@ -14,6 +15,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final double? leadingWidth;
   final List<Widget>? actions;
+  final SystemUiOverlayStyle? systemUiOverlayStyle;
   const CustomAppbar({
     super.key,
     required this.title,
@@ -23,6 +25,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.titleColor,
     this.leading,
     this.leadingWidth,
+    this.systemUiOverlayStyle,
     this.centerTitle = true,
   });
 
@@ -40,6 +43,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       forceMaterialTransparency: true,
       automaticallyImplyLeading: false,
       leadingWidth: leadingWidth,
+      systemOverlayStyle: systemUiOverlayStyle,
       leading: canPop
           ? leading ?? Transform(
               alignment: Alignment.center,

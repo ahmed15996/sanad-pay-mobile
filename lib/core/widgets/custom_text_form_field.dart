@@ -86,6 +86,7 @@ class CustomTextFormField extends StatelessWidget {
             onFieldSubmitted: onSubmitted,
             textInputAction: textInputAction,
             onTap: onTap,
+
             scrollPadding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
@@ -105,7 +106,7 @@ class CustomTextFormField extends StatelessWidget {
               suffixIcon: suffixIcon,
               hintText: hintText,
               isDense: true,
-              hintStyle: hintTextStyle ?? AppTextStyles.textStyle14.copyWith(
+              hintStyle: hintTextStyle ?? AppTextStyles.textStyle10.copyWith(
                 color: AppColors.hintColor
               ),
               enabledBorder: buildOutlineInputBorder(borderColor,borderRadiusValue),
@@ -114,11 +115,14 @@ class CustomTextFormField extends StatelessWidget {
               focusedErrorBorder: buildOutlineInputBorder(AppColors.redColor,borderRadiusValue),
               errorStyle: AppTextStyles.textStyle12.copyWith(
                 color: AppColors.redColor,
+                height: 1.2
               ),
+
               contentPadding:
                   contentPadding ??
                   EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
             ),
+
             onChanged: onChanged,
           ),
         ),

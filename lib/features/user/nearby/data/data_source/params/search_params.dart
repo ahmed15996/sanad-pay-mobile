@@ -6,9 +6,10 @@ part 'search_params.g.dart';
 class SearchParams {
   final String key;
   final int page;
+  final double? lat,long;
 
   SearchParams(
-      {required this.key, required this.page});
+      {required this.key, required this.page,required this.lat,required this.long});
 
   Map<String, dynamic> toJson() => _$SearchParamsToJson(this);
 }

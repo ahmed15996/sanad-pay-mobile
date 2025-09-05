@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import '../../../../../../core/constants/app_colors.dart';
+import '../../../../../../core/constants/app_text_styles.dart';
 import '../../../../../../core/widgets/custom_appbar.dart';
 import '../../../../../../core/widgets/custom_error.dart';
 import '../../../../../../core/widgets/custom_loading.dart';
@@ -28,7 +30,10 @@ class _TermsAndCondViewState extends State<TermsAndCondView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
-      appBar: CustomAppbar(title: LocaleKeys.termsAndConditions.tr()),
+      appBar: CustomAppbar(
+        title: LocaleKeys.termsAndConditions.tr(),
+        systemUiOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
       body: BlocBuilder<TermsAndCondCubit, TermsAndCondState>(
         builder: (context, state) {
           final cubit = context.read<TermsAndCondCubit>();
@@ -60,7 +65,12 @@ class _TermsAndCondViewState extends State<TermsAndCondView> {
                     horizontal: 16.w,
                     vertical: 15.h,
                   ),
-                  child: Html(data: cubit.termsData.toString()),
+                  child: HtmlWidget(
+                    cubit.termsData.toString(),
+                    textStyle: AppTextStyles.textStyle16.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+                  ),
                 );
         },
       ),

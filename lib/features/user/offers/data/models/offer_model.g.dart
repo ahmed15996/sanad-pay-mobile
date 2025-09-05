@@ -13,4 +13,5 @@ OfferModel _$OfferModelFromJson(Map<String, dynamic> json) => OfferModel(
   discount: (json['discount'] as num).toInt(),
   price: json['price'] as String,
   date: json['date'] as String,
+  storeId: (json['store_id'] as num).toInt(),
 );

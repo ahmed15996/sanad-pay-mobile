@@ -60,25 +60,25 @@ class CustomCreateInvoiceFormWidget extends StatelessWidget {
             heightSpace(26),
             CustomFieldPhoneWidget(
               phoneController: cubit.phoneCtrl,
-              showPrefix: false,
               fillColor: AppColors.whiteColor,
               hintText: LocaleKeys.enterPhoneNumber.tr(),
-              suffixWidget: Padding(
-                padding:  EdgeInsetsDirectional.only(end: 24.w),
+              prefixWidget: Padding(
+                padding:  EdgeInsetsDirectional.only(start: 16.w),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      "+966",
-                      style: AppTextStyles.textStyle12.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.blackColor,
-                      ),
-                    ),
+                    SvgPicture.asset(AppAssets.saudi),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 7),
-                      child: SvgPicture.asset(AppAssets.saudi),
+                      child: Text(
+                        "+966",
+                        style: AppTextStyles.textStyle12.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.blackColor,
+                        ),
+                      ),
                     ),
+
                   ],
                 ),
               ),
@@ -87,11 +87,12 @@ class CustomCreateInvoiceFormWidget extends StatelessWidget {
             CustomButton(
               text: LocaleKeys.sendRequest.tr(),
               isLoading: cubit.state is CreateInvoiceLoading,
+              isDisabled: !cubit.isButtonEnabled,
               onPressed: () {
                 bool isPhoneValidated = cubit.phoneCtrl.validatePhoneField();
                 if (cubit.formKey.currentState!.validate() &&
                     isPhoneValidated) {
-                  cubit.createInvoice(context, false);
+                  cubit.createInvoice(false);
                 }
               },
             ),
@@ -122,7 +123,7 @@ class CustomCreateInvoiceFormWidget extends StatelessWidget {
               backgroundColor: AppColors.secondaryColor,
               onPressed: () {
                 if (cubit.formKey.currentState!.validate()) {
-                  context.pushWithNamed(
+                   context.pushWithNamed(
                     Routes.qrScannerView,
                     arguments: cubit.updateBarcode,
                   );
@@ -131,6 +132,7 @@ class CustomCreateInvoiceFormWidget extends StatelessWidget {
               isLoading: cubit.state is CreateQrInvoiceLoading,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   SvgPicture.asset(AppAssets.qrcode),
                   widthSpace(10.w),

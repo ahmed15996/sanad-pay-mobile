@@ -18,6 +18,8 @@ class AppColors {
   static const Color orangeColor = Color(0xffFFBB56);
   static const Color borderColor = Color(0xffF2F2F2);
   static const Color lighterGreyColor = Color(0xffEFEEFF);
+  static const Color languageColor = Color(0xffFBFBFB);
+  static const Color borderSecondaryColor = Color(0xffF4F4F4);
   static const MaterialColor rhinoDark = MaterialColor(
     0xffEAECF0,
     <int, Color>{

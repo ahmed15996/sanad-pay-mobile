@@ -18,6 +18,8 @@ class CustomStoreWorkingTimeWidget extends StatelessWidget {
     return Padding(
       padding:  EdgeInsets.symmetric(horizontal: 24.w),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SvgPicture.asset(AppAssets.clock),
           widthSpace(12.w),

@@ -16,7 +16,7 @@ class QrScannerCubit extends Cubit<QrScannerState> {
   void qrScanning({
     required BarcodeCapture capture,
     required BuildContext context,
-    required Function(String barcode, BuildContext context) updateBarcode,
+    required Function(String barcode) updateBarcode,
   }) async {
     final List<Barcode> barcodes = capture.barcodes;
     final barcode = barcodes.first;
@@ -24,8 +24,10 @@ class QrScannerCubit extends Cubit<QrScannerState> {
     if (qrCode != null) {
       try {
         await controller.stop().then((value) {
-          updateBarcode(qrCode.toString(),context);
-          context.pop();
+          updateBarcode(qrCode.toString());
+          if(context.mounted) {
+            context.pop();
+          }
         });
       } catch (e) {
         debugPrint("Error $e");

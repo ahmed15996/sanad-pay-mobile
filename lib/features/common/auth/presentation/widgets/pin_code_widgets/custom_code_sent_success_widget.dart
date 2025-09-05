@@ -17,22 +17,26 @@ class CustomCodeSentSuccessWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(TextSpan(
-      text:  "${LocaleKeys.sentVerificationCode.tr()}: $phone.  ",
-      style: AppTextStyles.textStyle16.copyWith(color: AppColors.rhinoDark.shade400),
-      children: [
-        TextSpan(
-            text:
-              "[${LocaleKeys.edit.tr()}]",
-              style: AppTextStyles.textStyle16.copyWith(
-                  color: AppColors.primaryColor
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  context.pop();
-                }
-        )
-      ]
-    ));
+    return Text.rich(
+      TextSpan(
+        text:
+            "${LocaleKeys.sentVerificationCode.tr()}: ${phone.startsWith("0") ? phone : "0$phone"}.  ",
+        style: AppTextStyles.textStyle16.copyWith(
+          color: AppColors.rhinoDark.shade400,
+        ),
+        children: [
+          TextSpan(
+            text: "[${LocaleKeys.edit.tr()}]",
+            style: AppTextStyles.textStyle16.copyWith(
+              color: AppColors.primaryColor,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                context.pop();
+              },
+          ),
+        ],
+      ),
+    );
   }
 }

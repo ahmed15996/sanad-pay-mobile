@@ -26,6 +26,15 @@ class PinCodeCubit extends Cubit<PinCodeState> {
   final pinCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  bool isButtonEnabled = false;
+
+  void addListener(){
+    pinCtrl.addListener(() {
+      isButtonEnabled = formKey.currentState!.validate();
+      emit(PinCodeSuccess());
+    },);
+  }
+
   void sendCode({
     required VoidCallback timer,
     required PinCodeArgument argument,

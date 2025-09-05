@@ -19,11 +19,7 @@ import 'widgets/custom_button_send_request_create_acc_tech_widget.dart';
 import 'widgets/custom_input_store_create_acc_widget.dart';
 
 class CreateAccStoreView extends StatefulWidget {
-
-
-  const CreateAccStoreView({
-    super.key,
-  });
+  const CreateAccStoreView({super.key});
 
   @override
   State<CreateAccStoreView> createState() => _CreateAccStoreViewState();
@@ -33,6 +29,7 @@ class _CreateAccStoreViewState extends State<CreateAccStoreView> {
   @override
   void initState() {
     context.read<CreateAccStoreCubit>().fetchCities();
+    context.read<CreateAccStoreCubit>().addListener();
     super.initState();
   }
 
@@ -45,22 +42,28 @@ class _CreateAccStoreViewState extends State<CreateAccStoreView> {
           Expanded(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsetsDirectional.only(start: 24.w, top: 30.h),
+                padding: EdgeInsetsDirectional.only(start: 24.w, top: 20.h),
                 child: Align(
                   alignment: AlignmentDirectional.topStart,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Transform(
-                          alignment: Alignment.center,
-                          transform:
-                          TextDirection.ltr.name ==
-                              Directionality.of(context).name
-                              ? Matrix4.rotationY(3.1416)
-                              : Matrix4.rotationY(0),
-                          child: SvgPicture.asset(AppAssets.arrowBack,color: AppColors.whiteColor,)).onTap(function: () {
-                        context.pop();
-                      },),
+                        alignment: Alignment.center,
+                        transform:
+                            TextDirection.ltr.name ==
+                                Directionality.of(context).name
+                            ? Matrix4.rotationY(3.1416)
+                            : Matrix4.rotationY(0),
+                        child: SvgPicture.asset(
+                          AppAssets.arrowBack,
+                          color: AppColors.whiteColor,
+                        ),
+                      ).onTap(
+                        function: () {
+                          context.pop();
+                        },
+                      ),
                       heightSpace(10.h),
                       Text(
                         LocaleKeys.createAccount.tr(),
@@ -82,9 +85,7 @@ class _CreateAccStoreViewState extends State<CreateAccStoreView> {
             child: Container(
               decoration: BoxDecoration(
                 color: AppColors.whiteColor,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(24.r),
-                ),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
               ),
               child: BlocBuilder<CreateAccStoreCubit, CreateAccStoreState>(
                 builder: (context, state) {
@@ -95,53 +96,52 @@ class _CreateAccStoreViewState extends State<CreateAccStoreView> {
                             horizontal: 16.w,
                             vertical: 20.h,
                           ),
-                          child: const CustomLoading(
-                          ),
+                          child: const CustomLoading(),
                         )
                       : state is GetDataFailure
-                          ? Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 16.w,
-                                vertical: 20.h,
-                              ),
-                              child: Center(
-                                child: CustomError(
-                                  error: state.error,
-                                  retry: () {
-                                    cubit.fetchCities();
-                                  },
-                                ),
-                              ),
-                            )
-                          : SingleChildScrollView(
-                              padding: EdgeInsetsDirectional.only(
-                                start: 27.w,
-                                end: 21.w,
-                                bottom: 20.h,
-                              ),
-                              child: AbsorbPointer(
-                                absorbing: state is CreateAccLoading ? true : false,
-                                child: Form(
-                                  key: cubit.formKey,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      heightSpace(24.h),
-                                      CustomInputStoreCreateAccWidget(
-                                        cubit: cubit,
-                                      ),
-                                      heightSpace(20.h),
-                                      CustomInputStoreOwnerWidget(),
-                                      const CustomStoreAcceptTermsAndCondWidget(),
-                                      heightSpace(33.h),
-                                      CustomButtonSendRequestCreateAccTechWidget(
-                                        cubit: cubit,
-                                      )
-                                    ],
+                      ? Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 20.h,
+                          ),
+                          child: Center(
+                            child: CustomError(
+                              error: state.error,
+                              retry: () {
+                                cubit.fetchCities();
+                              },
+                            ),
+                          ),
+                        )
+                      : SingleChildScrollView(
+                          padding: EdgeInsetsDirectional.only(
+                            start: 27.w,
+                            end: 21.w,
+                            bottom:
+                                MediaQuery.of(context).viewInsets.bottom + 20.h,
+                          ),
+                          child: AbsorbPointer(
+                            absorbing: state is CreateAccLoading ? true : false,
+                            child: Form(
+                              key: cubit.formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  heightSpace(24.h),
+                                  CustomInputStoreCreateAccWidget(cubit: cubit),
+                                  heightSpace(20.h),
+                                  CustomInputStoreOwnerWidget(),
+                                  heightSpace(20.h),
+                                  const CustomStoreAcceptTermsAndCondWidget(),
+                                  heightSpace(33.h),
+                                  CustomButtonSendRequestCreateAccTechWidget(
+                                    cubit: cubit,
                                   ),
-                                ),
+                                ],
                               ),
-                            );
+                            ),
+                          ),
+                        );
                 },
               ),
             ),

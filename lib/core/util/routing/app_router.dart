@@ -25,7 +25,6 @@ import 'package:sanad/features/user/payments/data/arguments/payment_request_argu
 import 'package:sanad/features/user/payments/presentation/cubits/create_financing_cubit/create_financing_cubit.dart';
 import 'package:sanad/features/user/payments/presentation/cubits/payments_cubit/payments_cubit.dart';
 import 'package:sanad/features/user/payments/presentation/cubits/transaction_history_cubit/transaction_history_cubit.dart';
-import 'package:sanad/features/user/payments/presentation/views/create_financing_request.dart';
 import 'package:sanad/features/user/payments/presentation/views/financing_status_view.dart';
 import 'package:sanad/features/user/payments/presentation/views/payment_request_view.dart';
 import 'package:sanad/features/user/payments/presentation/views/transaction_history_view.dart';
@@ -52,6 +51,7 @@ import '../../../features/user/create_acc_user/presentation/cubit/create_acc_use
 import '../../../features/user/create_acc_user/presentation/views/create_acc_user_view.dart';
 import '../../../features/user/nearby/presentation/views/nearby_view.dart';
 import '../../../features/user/payments/data/arguments/financing_status_arguments.dart';
+import '../../../features/user/payments/presentation/views/create_financing_request_view.dart';
 import '../../../features/user/store_details/data/arguments/store_details_arguments.dart';
 import '../../di/di.dart';
 import '../../framework/navigation_animation.dart';
@@ -138,7 +138,7 @@ class AppRouter {
         );
       case Routes.qrScannerView:
         final updateBarcode =
-            arguments as void Function(String barcode, BuildContext context);
+            arguments as void Function(String barcode);
         return _buildRoute(
           builder: (_) => BlocProvider(
             create: (context) => getIt<QrScannerCubit>(),

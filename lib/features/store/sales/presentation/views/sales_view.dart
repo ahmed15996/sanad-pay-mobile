@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,12 +30,15 @@ class SalesView extends StatelessWidget {
         appBar: CustomAppbar(
           title: LocaleKeys.sales.tr(),
           leadingWidth: 80.w,
+          systemUiOverlayStyle: SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.dark,
+          ),
           leading: BlocBuilder<SalesCubit, SalesState>(
             builder: (context, state) {
               var cubit = context.read<SalesCubit>();
               if (cubit.userModel != null) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  padding: EdgeInsets.all(20.w),
                   child: CustomImageNetwork(
                     image: cubit.userModel!.image,
                     widthImage: 24.w,

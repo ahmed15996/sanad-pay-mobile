@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:sanad/features/common/auth/data/models/user_model.dart';
 import 'package:sanad/features/user/home/data/models/home_model.dart';
+import 'package:sanad/features/user/home/data/params/home_user_params.dart';
 import '../../../../../../core/api/api_consumer.dart';
 import '../../../../../../core/api/base_response.dart';
 import '../../../../../../core/constants/api_constants.dart';
@@ -14,8 +15,8 @@ class HomeUserRemoteDataSourceImpl extends HomeUserRemoteDataSource {
   HomeUserRemoteDataSourceImpl({required this.apiConsumer});
 
   @override
-  Future<HomeModel> fetchHome() async {
-    BaseResponse response = await apiConsumer.get(ApiConstants.home);
+  Future<HomeModel> fetchHome(HomeUserParams params) async {
+    BaseResponse response = await apiConsumer.get(ApiConstants.home,queryParameters: params.toJson());
     if (response.status == true) {
       return HomeModel.fromJson(response.data);
     } else {

@@ -86,12 +86,12 @@ class ProfileCubit extends Cubit<ProfileState> {
       isAuthenticated = canCheckBiometrics && isDeviceSupported;
       debugPrint(
           "isFaceIdNotify >>> ${appPref.getData(key: AppCached.isFaceIdNotify)}");
-      emit(CheckAuthentication());
+      emit(DeleteAccAndLogOutSuccess());
     }on PlatformException {
       // ...
     }catch(e){
       debugPrint(e.toString());
-
+ 
     }
   }
 

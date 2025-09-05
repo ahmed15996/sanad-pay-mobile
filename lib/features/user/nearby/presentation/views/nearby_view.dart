@@ -18,6 +18,8 @@ import 'package:sanad/features/user/nearby/presentation/views/cubit/nearby_cubit
 import 'package:sanad/features/user/nearby/presentation/views/widgets/custom_nearby_stores_list_widget.dart';
 
 import '../../../../../core/constants/app_text_styles.dart';
+import '../../../../../core/widgets/custom_footer_pagination_widget.dart';
+import '../../../../../core/widgets/custom_header_pagination_widget.dart';
 import '../../../../../generated/locale_keys.g.dart';
 
 class NearbyView extends StatelessWidget {
@@ -71,32 +73,34 @@ class NearbyView extends StatelessWidget {
                 Expanded(
                   child: SmartRefresher(
                     controller: cubit.refreshController,
+                    header: CustomHeaderAppPagination(),
+                    footer: CustomFooterAppPagination(),
                     onLoading: () {
                       cubit.paginateNearby();
                     },
                     onRefresh: () {
                       cubit.refreshNearby();
                     },
-                    enablePullUp :true ,
-                    child: SingleChildScrollView(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        heightSpace(24),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 24.w),
-                          child: Text(
-                            LocaleKeys.selectedStores.tr(),
-                            style: AppTextStyles.textStyle16.copyWith(
-                              color: AppColors.rhinoDark.shade600,
+                    enablePullUp: true,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          heightSpace(24),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            child: Text(
+                              LocaleKeys.selectedStores.tr(),
+                              style: AppTextStyles.textStyle16.copyWith(
+                                color: AppColors.rhinoDark.shade600,
+                              ),
                             ),
                           ),
-                        ),
-                        heightSpace(12),
-                        CustomSelectedStoresListWidget(
-                          selectedStores: cubit.selectedStores,
-                        ),
-                        if(cubit.stores.isNotEmpty)
-                          ...[
+                          heightSpace(12),
+                          CustomSelectedStoresListWidget(
+                            selectedStores: cubit.selectedStores,
+                          ),
+                          if (cubit.stores.isNotEmpty) ...[
                             heightSpace(24),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -110,15 +114,13 @@ class NearbyView extends StatelessWidget {
                             heightSpace(12),
                             CustomNearbyStoresListWidget(stores: cubit.stores),
                           ],
-                        if(cubit.stores.isEmpty)
-                          CustomEmptyData(
-                            text: LocaleKeys.emptySearch.tr(),
-                          )
-                      ],
-                    ),),
+                          if (cubit.stores.isEmpty)
+                            CustomEmptyData(text: LocaleKeys.emptySearch.tr()),
+                        ],
+                      ),
+                    ),
                   ),
-                )
-
+                ),
               ],
             );
           }

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sanad/core/util/extensions/navigation.dart';
@@ -43,14 +44,14 @@ class CustomInputStoreCreateAccWidget extends StatelessWidget {
           keyboardType: TextInputType.name,
           ctrl: cubit.storeNameCtrl,
           hintText: LocaleKeys.enterStoreName.tr(),
-          validator: AppValidator.defaultValidator,
+          validator: AppValidator.storeNameValidator,
         ),
         heightSpace(17.h),
         CustomTextFormField(
           readOnly: true,
           ctrl: cubit.storeLogoCtrl,
           hintText: LocaleKeys.attachStoreImageOrLogo.tr(),
-          validator: AppValidator.defaultValidator,
+          validator: AppValidator.storeImageOrLogoValidator,
           suffixIcon: SvgPicture.asset(AppAssets.upload, fit: BoxFit.scaleDown),
           onTap: () async {
             cubit.pickImage(context: context, type: 1);
@@ -68,7 +69,7 @@ class CustomInputStoreCreateAccWidget extends StatelessWidget {
           readOnly: true,
           ctrl: cubit.storeLocationCtrl,
           hintText: LocaleKeys.detectStoreLocationOnMap.tr(),
-          validator: AppValidator.defaultValidator,
+          validator: AppValidator.storeLocationValidator,
           suffixIcon: SvgPicture.asset(
             AppAssets.selectLocation,
             fit: BoxFit.scaleDown,
@@ -87,15 +88,10 @@ class CustomInputStoreCreateAccWidget extends StatelessWidget {
           value: cubit.selectedCategoryId,
           hintText: LocaleKeys.selectStoreCategory.tr(),
           validator: (value) {
-            return AppValidator.defaultValidator(value?.name);
+            return AppValidator.categoryValidator(value?.name);
           },
           items: cubit.categories,
-          headerBuilder: (p0, category, p2) {
-            return Text(category.name);
-          },
-          listItemBuilder: (p0, category, p2, p3) {
-            return Text(category.name);
-          },
+
           onChanged: (value) {
             cubit.changeCategoryValue(value!);
           },
@@ -104,6 +100,7 @@ class CustomInputStoreCreateAccWidget extends StatelessWidget {
         CustomTextFormField(
           ctrl: cubit.branchesCountCtrl,
           hintText: LocaleKeys.enterStoreBranchesNumber.tr(),
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           suffixIcon: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +109,7 @@ class CustomInputStoreCreateAccWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Text(
                   "(${LocaleKeys.optional.tr()})",
-                  style: AppTextStyles.textStyle14.copyWith(
+                  style: AppTextStyles.textStyle10.copyWith(
                     color: AppColors.hintColor,
                   ),
                 ),
@@ -127,23 +124,17 @@ class CustomInputStoreCreateAccWidget extends StatelessWidget {
           hintText: LocaleKeys.enterStoreDescription.tr(),
           maxLength: 200,
           maxLines: 5,
-          validator: AppValidator.defaultValidator,
+          validator: AppValidator.storeDescriptionValidator,
         ),
         heightSpace(17.h),
         CustomDropDownField<CityModel>(
           value: cubit.selectedCityId,
           hintText: LocaleKeys.selectYourCity.tr(),
           validator: (value) {
-            return AppValidator.defaultValidator(value?.name);
-          },
-          headerBuilder: (p0, city, p2) {
-            return Text(city.name);
-          },
-          listItemBuilder: (p0, city, p2, p3) {
-            return Text(city.name);
+            return AppValidator.cityValidator(value?.name);
           },
           items: cubit.cities,
-          prefixIcon: SvgPicture.asset(AppAssets.city,fit: BoxFit.scaleDown,),
+
           onChanged: (value) {
             cubit.changeCityValue(value!);
           },
@@ -152,7 +143,7 @@ class CustomInputStoreCreateAccWidget extends StatelessWidget {
         CustomTextFormField(
           ctrl: cubit.addressCtrl,
           hintText: LocaleKeys.enterYourAddressWithStreetAndDistrict.tr(),
-          validator: AppValidator.defaultValidator,
+          validator: AppValidator.addressValidator,
         ),
         heightSpace(17.h),
         CustomStoreWorkingTimeWidget(),

@@ -69,7 +69,7 @@ class CustomDeleteAccDialog extends StatelessWidget {
               LocaleKeys.sureDeleted.tr(),
               style: AppTextStyles.textStyle12.copyWith(
                 fontWeight: FontWeight.w500,
-                color: AppColors.blackColor
+                color: AppColors.textColor
               ),
             ),
             heightSpace(48.h),

@@ -25,62 +25,64 @@ class CustomPaymentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<PaymentsCubit>();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 77.w,
-          height: 77.h,
-          padding: EdgeInsets.symmetric(horizontal: 21.w, vertical: 18.h),
-          decoration: BoxDecoration(
-            color: AppColors.primaryColor,
-            shape: BoxShape.circle,
-          ),
-          child: SvgPicture.asset(AppAssets.logo),
-        ),
-        heightSpace(32),
-        Text(
-          "${LocaleKeys.paymentDate.tr()}\n${paymentModel.date}",
-          textAlign: TextAlign.center,
-          style: AppTextStyles.textStyle28.copyWith(
-            color: AppColors.rhinoDark.shade600,
-          ),
-        ),
-        heightSpace(24),
-        Text(
-          paymentModel.amount,
-          style: AppTextStyles.textStyle20.copyWith(
-            fontWeight: FontWeight.w500,
-            color: AppColors.secondaryColor,
-          ),
-        ),
-        heightSpace(40),
-        CustomButton(
-          text: LocaleKeys.payNow.tr(),
-          isLoading: cubit.state is PayLoading,
-          onPressed: () {
-            cubit.pay();
-          },
-        ),
-        heightSpace(25),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              LocaleKeys.transactionHistory.tr(),
-              style: AppTextStyles.textStyle14.copyWith(
-                fontWeight: FontWeight.bold,
-                color: AppColors.blackColor,
-              ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 77.w,
+            height: 77.h,
+            padding: EdgeInsets.symmetric(horizontal: 21.w, vertical: 18.h),
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor,
+              shape: BoxShape.circle,
             ),
-            Icon(Icons.arrow_forward_ios, color: AppColors.primaryColor),
-          ],
-        ).onTap(
-          function: () {
-            context.pushWithNamed(Routes.transactionHistoryView);
-          },
-        ),
-      ],
+            child: SvgPicture.asset(AppAssets.logo),
+          ),
+          heightSpace(24),
+          Text(
+            "${LocaleKeys.paymentDate.tr()}\n${paymentModel.date}",
+            textAlign: TextAlign.center,
+            style: AppTextStyles.textStyle28.copyWith(
+              color: AppColors.rhinoDark.shade600,
+            ),
+          ),
+          heightSpace(24),
+          Text(
+            paymentModel.amount,
+            style: AppTextStyles.textStyle20.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColors.secondaryColor,
+            ),
+          ),
+          heightSpace(20),
+          CustomButton(
+            text: LocaleKeys.payNow.tr(),
+            isLoading: cubit.state is PayLoading,
+            onPressed: () {
+              cubit.pay();
+            },
+          ),
+          heightSpace(20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                LocaleKeys.transactionHistory.tr(),
+                style: AppTextStyles.textStyle14.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.blackColor,
+                ),
+              ),
+              Icon(Icons.arrow_forward_ios, color: AppColors.primaryColor),
+            ],
+          ).onTap(
+            function: () {
+              context.pushWithNamed(Routes.transactionHistoryView);
+            },
+          ),
+        ],
+      ),
     );
   }
 }

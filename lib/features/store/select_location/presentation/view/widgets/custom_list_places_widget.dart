@@ -41,7 +41,9 @@ class CustomListPlacesWidget extends StatelessWidget {
             Expanded(
               child: Text(
                 bloc.places[index].name,
-                style: AppTextStyles.textStyle16,
+                style: AppTextStyles.textStyle16.copyWith(
+                  color: AppColors.blackColor,
+                ),
               ),
             )
           ],

@@ -18,10 +18,11 @@ class CustomPreviousPaymentsItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(AppAssets.previousPayment),
+        SvgPicture.asset(AppAssets.previousPayment,height: 70.r,),
         widthSpace(12.w),
         Expanded(child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             Text("${LocaleKeys.paymentDate.tr()} (${paymentModel.date})",
               style: AppTextStyles.textStyle14.copyWith(

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sanad/features/common/static_pages/faq/presentation/views/widgets/custom_faq_list.dart';
@@ -31,6 +32,9 @@ class _FaqViewState extends State<FaqView> {
       backgroundColor: AppColors.scaffoldBackgroundColor,
       appBar: CustomAppbar(
         title: LocaleKeys.faq.tr(),
+        systemUiOverlayStyle: SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+        ),
       ),
       body: BlocBuilder<FaqCubit, FaqState>(
         builder: (context, state) {

@@ -26,14 +26,17 @@ class CustomEmptyData extends StatelessWidget {
             image!,
             height: context.height * 0.24,
           ),
-          heightSpace(32.h),
-          Text(
-            text ?? LocaleKeys.emptyData.tr(),
-            style: AppTextStyles.textStyle28.copyWith(
-              fontWeight: FontWeight.w600,
-              color: AppColors.rhinoDark.shade600,
+          heightSpace(20.h),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 24.w),
+            child: Text(
+              text ?? LocaleKeys.emptyData.tr(),
+              style: AppTextStyles.textStyle20.copyWith(
+                fontWeight: FontWeight.w600,
+                color: AppColors.rhinoDark.shade600,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
           if(subtitle != null)
             ...[

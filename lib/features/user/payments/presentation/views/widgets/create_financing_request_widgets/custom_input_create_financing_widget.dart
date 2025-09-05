@@ -28,7 +28,7 @@ class CustomInputCreateFinancingWidget extends StatelessWidget {
             keyboardType: TextInputType.number,
             ctrl: cubit.nationalIdCtrl,
             fillColor: AppColors.whiteColor,
-            validator: AppValidator.defaultValidator,
+            validator: AppValidator.nationalIdValidator,
             hintText: LocaleKeys.nationalId.tr(),
           ),
           heightSpace(10),
@@ -36,6 +36,7 @@ class CustomInputCreateFinancingWidget extends StatelessWidget {
             ctrl: cubit.dateOfBirthCtrl,
             hintText: LocaleKeys.enterYourDateOfBirth.tr(),
             readOnly: true,
+
             onTap: () async {
               var date = await showDatePicker(
                 context: context,
@@ -47,19 +48,19 @@ class CustomInputCreateFinancingWidget extends StatelessWidget {
                 cubit.selectDateOfBirth(date);
               }
             },
-            validator: AppValidator.defaultValidator,
+            validator: AppValidator.dateOfBirthValidator,
           ),
           heightSpace(10),
           CustomTextFormField(
             ctrl: cubit.occupationCtrl,
             hintText: LocaleKeys.enterYourOccupation.tr(),
-            validator: AppValidator.defaultValidator,
+            validator: AppValidator.occupationValidator,
           ),
           heightSpace(10),
           CustomTextFormField(
             ctrl: cubit.dateOfStartedJobCtrl,
             hintText: LocaleKeys.enterTheDateYouStartedYourCurrentJob.tr(),
-            validator: AppValidator.defaultValidator,
+            validator: AppValidator.startedJobDateValidator,
             readOnly: true,
             onTap: () async {
               var date = await showDatePicker(
@@ -78,7 +79,7 @@ class CustomInputCreateFinancingWidget extends StatelessWidget {
             ctrl: cubit.salaryCtrl,
             hintText: LocaleKeys.enterYourSalary.tr(),
             keyboardType: TextInputType.number,
-            validator: AppValidator.defaultValidator,
+            validator: AppValidator.salaryValidator,
             onChanged: (value) {
               cubit.changeValue();
             },

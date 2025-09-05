@@ -23,6 +23,7 @@ class AppAssets {
   static const String search = "$_iconsPath/search.svg";
   static const String simpleSearch = "$_iconsPath/simple_search.svg";
   static const String arrowForward = "$_iconsPath/arrow_forward.svg";
+  static const String iosArrow = "$_iconsPath/ios_arrow.svg";
   static const String cancel = "$_iconsPath/cancel.svg";
   static const String arrowBack = "$_iconsPath/arrow_back.svg";
   static const String previousPayment = "$_imagesPath/previous_payment.svg";
@@ -43,6 +44,15 @@ class AppAssets {
   static const String contact = "$_iconsPath/contact.svg";
   static const String sr = "$_iconsPath/sr.svg";
   static const String filter = "$_iconsPath/filter.svg";
+  static const String about = "$_iconsPath/about.svg";
+  static const String contract = "$_iconsPath/contract.svg";
+  static const String privacy = "$_iconsPath/privacy.svg";
+  static const String language = "$_iconsPath/language.svg";
+  static const String face = "$_iconsPath/face.svg";
+  static const String support = "$_iconsPath/support.svg";
+  static const String rate = "$_iconsPath/rate.svg";
+  static const String cards = "$_iconsPath/cards.svg";
+  static const String faq = "$_iconsPath/faq.svg";
   static const String success = "$_imagesPath/success.svg";
   static const String financing = "$_imagesPath/financing.svg";
   static const String rejected = "$_imagesPath/rejected.svg";

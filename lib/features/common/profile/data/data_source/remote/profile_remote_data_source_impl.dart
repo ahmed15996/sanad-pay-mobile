@@ -18,7 +18,7 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
 
   @override
   Future<String> deleteAcc() async {
-    BaseResponse response = await apiConsumer.get(ApiConstants.deleteAcc);
+    BaseResponse response = await apiConsumer. delete(ApiConstants.deleteAcc);
     if (response.status == true) {
       return response.message.toString();
     } else {

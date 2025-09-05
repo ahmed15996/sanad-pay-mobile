@@ -42,22 +42,24 @@ class CustomStoreWorkingTimeWidget extends StatelessWidget {
                 TextFormField(
                   readOnly: true,
                   onTap: () async{
-                    var time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
+                    var time = await showTimePicker(context: context, initialTime: cubit.workFrom,initialEntryMode: TimePickerEntryMode.dialOnly,cancelText: LocaleKeys.cancel.tr(),confirmText: LocaleKeys.select.tr());
                     if(time != null){
                       cubit.changeWorkFrom(time);
                     }
 
                   },
-                  validator: AppValidator.defaultValidator,
+                  validator: AppValidator.startedJobDateValidator,
                   controller: cubit.workFromCtrl,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: "10:00 ص",
+                    hintText: cubit.formatTimeOfDayWithPeriod(TimeOfDay(hour: 10, minute: 0)),
                     suffixIcon: SvgPicture.asset(
                       AppAssets.clock,
                       color: AppColors.primaryColor,
                       fit: BoxFit.scaleDown,
+                      width: 20.w,
+                      height: 20.h,
                     ),
                   ),
 
@@ -94,19 +96,21 @@ class CustomStoreWorkingTimeWidget extends StatelessWidget {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: cubit.workToCtrl,
                   onTap: () async{
-                    var time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
+                    var time = await showTimePicker(context: context, initialTime: cubit.workTo,initialEntryMode: TimePickerEntryMode.dialOnly,cancelText: LocaleKeys.cancel.tr(),confirmText: LocaleKeys.select.tr());
                     if(time != null){
                       cubit.changeWorkTo(time);
                     }
                   },
-                  validator: AppValidator.defaultValidator,
+                  validator: AppValidator.toHourValidator,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: "10:00 ص",
+                    hintText: cubit.formatTimeOfDayWithPeriod(TimeOfDay(hour: 10, minute: 0)),
                     suffixIcon: SvgPicture.asset(
                       AppAssets.clock,
                       color: AppColors.primaryColor,
                       fit: BoxFit.scaleDown,
+                      width: 20.w,
+                      height: 20.h,
                     ),
                   ),
 

@@ -43,10 +43,11 @@ class StoreDetailsView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                heightSpace(10),
                 CustomStoreDetailsDataWidget(storeModel: cubit.storeModel!),
                 Row(
                   children: [
-                    widthSpace(121.w),
+                    widthSpace(135.w),
                     Text(
                      LocaleKeys.openMap.tr(),
                       style: AppTextStyles.textStyle12.copyWith(

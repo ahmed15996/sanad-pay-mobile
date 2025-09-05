@@ -29,8 +29,8 @@ class CustomCurrentLocationWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).dialogTheme.backgroundColor,
         borderRadius: BorderRadiusDirectional.only(
-          topEnd: Radius.circular(25.r),
-          topStart: Radius.circular(25.r),
+          topEnd: Radius.circular(24.r),
+          topStart: Radius.circular(24.r),
         ),
       ),
       child: Column(
@@ -43,7 +43,7 @@ class CustomCurrentLocationWidget extends StatelessWidget {
                 color: AppColors.blackColor
             ),
           ),
-          heightSpace(42.h),
+          heightSpace(18.h),
           CustomButton(
             onPressed: () {
               if (cubit.currentLocation != null) {

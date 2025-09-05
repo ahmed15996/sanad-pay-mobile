@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sanad/core/util/extensions/navigation.dart';
+import 'package:sanad/core/util/routing/routes.dart';
+import 'package:sanad/features/common/bottom_nav/data/arguments/bottom_nav_argument.dart';
 import 'package:sanad/features/common/profile/data/repository/profile_repository.dart';
 import '../../../../../core/helpers/custom_phone_controller.dart';
 import '../../../../../core/widgets/custom_toast.dart';
@@ -23,7 +25,12 @@ class CreateInvoiceCubit extends Cubit<CreateInvoiceState> {
   final HomeUserRepository homeUserRepository;
   final ProfileRepository profileRepository;
 
-  CreateInvoiceCubit(this.repository, this.homeStoreRepository, this.homeUserRepository, this.profileRepository) : super(CreateInvoiceInitial());
+  CreateInvoiceCubit(
+    this.repository,
+    this.homeStoreRepository,
+    this.homeUserRepository,
+    this.profileRepository,
+  ) : super(CreateInvoiceInitial());
 
   final formKey = GlobalKey<FormState>();
   final totalCtrl = TextEditingController();
@@ -32,15 +39,27 @@ class CreateInvoiceCubit extends Cubit<CreateInvoiceState> {
   DashboardModel? dashboardModel;
   UserModel? userModel;
   AppSettingsModel? appSettingsModel;
+  bool isButtonEnabled = false;
+
+  void validateForm() {
+    isButtonEnabled =
+        totalCtrl.text.isNotEmpty && phoneCtrl.controller.text.isNotEmpty;
+    emit(GetDataSuccess());
+  }
+
+  void addListener() {
+    totalCtrl.addListener(validateForm);
+    phoneCtrl.addListener(validateForm);
+  }
 
   void fetchDashboard() async {
     emit(GetDataLoading());
     var result = await homeStoreRepository.fetchDashboard();
     result.fold(
-          (failure) {
+      (failure) {
         emit(GetDataFailure(error: failure.message));
       },
-          (dashboardModel) {
+      (dashboardModel) {
         this.dashboardModel = dashboardModel;
         fetchUserProfile();
       },
@@ -48,41 +67,39 @@ class CreateInvoiceCubit extends Cubit<CreateInvoiceState> {
   }
 
   void fetchAppSettings() async {
-
     emit(GetDataLoading());
     var result = await profileRepository.fetchAppSettings();
     result.fold(
-          (failure) {
+      (failure) {
         emit(GetDataFailure(error: failure.message));
       },
-          (appSettingsModel) {
+      (appSettingsModel) {
         this.appSettingsModel = appSettingsModel;
         emit(GetDataSuccess());
       },
     );
   }
 
-
   void fetchUserProfile() async {
     emit(GetDataLoading());
     var result = await homeUserRepository.fetchUserProfile();
     result.fold(
-          (failure) {
+      (failure) {
         emit(GetDataFailure(error: failure.message));
       },
-          (userModel) {
+      (userModel) {
         this.userModel = userModel;
-      fetchAppSettings();
+        fetchAppSettings();
       },
     );
   }
 
-  void updateBarcode(String barcode, BuildContext context) {
+  void updateBarcode(String barcode) {
     phoneCtrl.controller.text = barcode;
-    createInvoice(context, true);
+    createInvoice(true);
   }
 
-  void createInvoice(BuildContext context, bool isQr) async {
+  void createInvoice(bool isQr) async {
     if (isQr) {
       emit(CreateQrInvoiceLoading());
     } else {
@@ -102,7 +119,6 @@ class CreateInvoiceCubit extends Cubit<CreateInvoiceState> {
       },
       (message) {
         showToast(text: message, state: ToastStates.success);
-        context.pop(arguments: true);
         emit(CreateInvoiceSuccess());
       },
     );

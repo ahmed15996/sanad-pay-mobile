@@ -17,8 +17,22 @@ import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../generated/locale_keys.g.dart';
 import '../../../create_acc_user/presentation/views/widgets/custom_row_accept_terms_and_cond_widget.dart';
 
-class CreateFinancingRequestView extends StatelessWidget {
+class CreateFinancingRequestView extends StatefulWidget {
   const CreateFinancingRequestView({super.key});
+
+  @override
+  State<CreateFinancingRequestView> createState() =>
+      _CreateFinancingRequestViewState();
+}
+
+class _CreateFinancingRequestViewState
+    extends State<CreateFinancingRequestView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<CreateFinancingCubit>().initListeners();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,23 +43,31 @@ class CreateFinancingRequestView extends StatelessWidget {
           Expanded(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsetsDirectional.only(start: 24.w, top: 15.h),
+                padding: EdgeInsetsDirectional.only(start: 24.w, top: 10.h),
                 child: Align(
                   alignment: AlignmentDirectional.topStart,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Transform(
-                          alignment: Alignment.center,
-                          transform:
-                          TextDirection.ltr.name == Directionality.of(context).name
-                              ? Matrix4.rotationY(3.1416)
-                              : Matrix4.rotationY(0)
-                          ,child: SvgPicture.asset(AppAssets.arrowBack,color: AppColors.whiteColor,)). onTap(function: () {
-                        context.pop();
-                      },),
+                        alignment: Alignment.center,
+                        transform:
+                            TextDirection.ltr.name ==
+                                Directionality.of(context).name
+                            ? Matrix4.rotationY(3.1416)
+                            : Matrix4.rotationY(0),
+                        child: SvgPicture.asset(
+                          AppAssets.arrowBack,
+                          color: AppColors.whiteColor,
+                        ),
+                      ).onTap(
+                        function: () {
+                          context.pop();
+                        },
+                      ),
+                      heightSpace(5),
                       Text(
-                       LocaleKeys.financingRequest.tr(),
+                        LocaleKeys.financingRequest.tr(),
                         style: AppTextStyles.textStyle32,
                       ),
                     ],
@@ -84,7 +106,7 @@ class CreateFinancingRequestView extends StatelessWidget {
                                 cubit.sendFinancingRequest(context);
                               }
                             },
-                            isDisabled: !(cubit.formKey.currentState?.validate() ?? false),
+                            isDisabled: !cubit.isButtonEnabled,
                             isLoading: state is SendFinancingRequestLoading,
                             text: LocaleKeys.submitRequest.tr(),
                           ),

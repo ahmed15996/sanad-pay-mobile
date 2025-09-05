@@ -35,7 +35,7 @@ class CustomStoreDashboardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 38.w, end: 25.w, top: 30.h),
+      padding: EdgeInsetsDirectional.only(start: 38.w, end: 25.w, top: 20.h),
       child: Column(
         children: [
           Row(
@@ -64,7 +64,7 @@ class CustomStoreDashboardWidget extends StatelessWidget {
                       side: BorderSide(color: AppColors.whiteColor),
                     ),
                   ),
-                  padding: EdgeInsets.all(20.w),
+                  padding: EdgeInsets.all(40.w),
                   child: CustomImageNetwork(image: userModel.image),
                 ),
               ),
@@ -75,6 +75,7 @@ class CustomStoreDashboardWidget extends StatelessWidget {
               ),
             ],
           ),
+          heightSpace(10.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

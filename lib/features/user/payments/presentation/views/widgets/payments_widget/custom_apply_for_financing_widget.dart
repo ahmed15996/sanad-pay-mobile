@@ -17,28 +17,28 @@ class CustomApplyForFinancingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.asset(AppAssets.financing),
-        heightSpace(25),
-        Text(
-          LocaleKeys.applyFinancingInformation.tr(),
-          textAlign: TextAlign.center,
-          style: AppTextStyles.textStyle24.copyWith(
-            fontWeight: FontWeight.w600,
-            color: AppColors.rhinoDark.shade600,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SvgPicture.asset(AppAssets.financing),
+          Text(
+            LocaleKeys.applyFinancingInformation.tr(),
+            textAlign: TextAlign.center,
+            style: AppTextStyles.textStyle24.copyWith(
+              fontWeight: FontWeight.w600,
+              color: AppColors.rhinoDark.shade600,
+            ),
           ),
-        ),
-        heightSpace(90),
-        CustomButton(
-          text: LocaleKeys.applyForFinancing.tr(),
-          isDisabled: !canApplyFinance,
-          onPressed: () {
-            context.pushWithNamed(Routes.createFinancingView);
-          },
-        ),
-      ],
+          heightSpace(30),
+          CustomButton(
+            text: LocaleKeys.applyForFinancing.tr(),
+            isDisabled: !canApplyFinance,
+            onPressed: () {
+              context.pushWithNamed(Routes.createFinancingView);
+            },
+          ),
+        ],
+      ),
     );
   }
 }

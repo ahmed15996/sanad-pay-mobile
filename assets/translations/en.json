@@ -175,7 +175,32 @@
   "enterStoreInformation" : "Enter Store Information",
   "emptyNotification" : "You're all caught up!",
   "emptyNotificationContent" : "You have no new notifications at the moment.",
-  "emptySearch" : "No nearby stores available at the moment!"
+  "emptySearch" : "No nearby stores available at the moment!",
+  "emptyNationalId" : "please enter your national Id",
+  "emptyDateOfBirth" : "please select your date of birth",
+  "emptyOccupation" : "please Enter Your Occupation",
+  "emptyStartedJobDate" : "please select started Job Date",
+  "emptySalary" : "please enter Your Salary",
+  "emptyCity" : "please select city",
+  "emptyCategory" : "please select category",
+  "loadFailed" : "Load Failed",
+  "releaseToLoadMore" : "Release to load more",
+  "emptyStoreName" : "please enter store name",
+  "emptyStoreImageOrLogo" : "please Attach Store Image or logo",
+  "emptyStoreBranchesNumber" : "please enter store branches number",
+  "emptyStoreDescription" : "please enter store description",
+  "emptyAddress" : "please enter address",
+  "emptyStoreOwnerName" : "please enter store owner name",
+  "emptyStoreLocation" : "please detect store location on Map",
+  "emptyCommercialNumber" : "please enter commercial number",
+  "emptyCommercialImage" : "please attach commercial image",
+  "emptyJobStartHour" : "please select job start hour",
+  "emptyToHour" : "please select to hour",
+  "am" : "Am",
+  "pm" : "Pm",
+  "paymentRejected" : "Payment Rejected",
+  "paymentApproved" : "Transfer Successfully Done!",
+  "select" : "Select"
 
 
 

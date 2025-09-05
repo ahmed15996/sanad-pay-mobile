@@ -19,16 +19,12 @@ class CustomDropDownField<T> extends StatelessWidget {
   final Widget? prefixIcon;
   final AutovalidateMode? autoValidateMode;
   final Color? fillColor, borderColor;
-  final Widget Function(BuildContext, T, bool, void Function()) listItemBuilder;
-  final Widget Function(BuildContext, T, bool) headerBuilder;
 
   const CustomDropDownField({
     super.key,
     required this.items,
     required this.onChanged,
     required this.value,
-    required this.listItemBuilder,
-    required this.headerBuilder,
     this.hintText,
     this.validator,
     this.prefixIcon,
@@ -39,25 +35,50 @@ class CustomDropDownField<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(boxShadow: [AppShadows.defaultShadow]),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        inputDecorationTheme: const InputDecorationTheme(
+          errorBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          focusedErrorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          isDense: true,
+        ),
+      ),
       child: CustomDropdown<T>.search(
         hintText: hintText,
         items: items,
         excludeSelected: false,
         validator: validator,
-        listItemBuilder: listItemBuilder,
-        headerBuilder: headerBuilder,
         searchHintText: LocaleKeys.search.tr(),
+        hintBuilder: (context, hint, enabled) {
+          return Text(
+            hint,
+            style: AppTextStyles.textStyle10.copyWith(
+              color: AppColors.hintColor,
+            ),
+          );
+        },
+        headerBuilder: (context, selectedItem, enabled) {
+          return Text(
+            selectedItem.toString(),
+            style: AppTextStyles.textStyle14.copyWith(
+              color: AppColors.blackColor,
+            ),
+          );
+        },
         noResultFoundBuilder: (context, text) {
           return Center(
             child: Padding(
               padding: EdgeInsets.all(16.w),
-              child: Text(text,
+              child: Text(
+                text,
                 textAlign: TextAlign.center,
-                style: AppTextStyles.textStyle14.copyWith(
-                color: AppColors.blackColor
-              ),),
+                style: AppTextStyles.textStyle12.copyWith(
+                  color: AppColors.darkSecondaryColor,
+                ),
+              ),
             ),
           );
         },
@@ -66,7 +87,14 @@ class CustomDropDownField<T> extends StatelessWidget {
             color: AppColors.hintColor,
           ),
           prefixIcon: prefixIcon,
-          closedSuffixIcon: SvgPicture.asset(AppAssets.arrowDown,color: AppColors.primaryColor,fit: BoxFit.scaleDown,),
+          closedSuffixIcon: SvgPicture.asset(
+            AppAssets.arrowDown,
+            color: AppColors.primaryColor,
+            fit: BoxFit.scaleDown,
+            width: 26.w,
+            height: 26.h,
+          ),
+
           errorStyle: AppTextStyles.textStyle12.copyWith(
             color: AppColors.redColor,
           ),
@@ -75,50 +103,13 @@ class CustomDropDownField<T> extends StatelessWidget {
           closedBorderRadius: BorderRadius.circular(30),
           expandedBorderRadius: BorderRadius.circular(30),
           closedErrorBorderRadius: BorderRadius.circular(30),
-
-
+          closedErrorBorder: Border.all(color: AppColors.redColor),
+          expandedShadow: [AppShadows.defaultShadow],
+          closedShadow: [AppShadows.defaultShadow],
         ),
         onChanged: onChanged,
         noResultFoundText: LocaleKeys.emptyData.tr(),
       ),
-      // child: DropdownButtonFormField<T>(
-      //   value: value,
-      //   items: items,
-      //   decoration: InputDecoration(
-      //     prefixIcon: prefixIcon,
-      //     fillColor: fillColor,
-      //     filled: true,
-      //     enabledBorder: buildOutlineInputBorder(borderColor,),
-      //     focusedBorder: buildOutlineInputBorder(AppColors.primaryColor,),
-      //     errorBorder: buildOutlineInputBorder(AppColors.redColor),
-      //     focusedErrorBorder: buildOutlineInputBorder(AppColors.redColor),
-      //     errorStyle: AppTextStyles.textStyle12.copyWith(
-      //       color: AppColors.redColor,
-      //     ),
-      //     hintStyle: AppTextStyles.textStyle14.copyWith(
-      //         color: AppColors.hintColor
-      //     ),
-      //   ),
-      //   hint: hintText != null ? Text(
-      //     hintText!,
-      //     style: AppTextStyles.textStyle14.copyWith(
-      //   color: AppColors.hintColor
-      //   ),
-      //   ) : null,
-      //   validator: validator,
-      //   isDense: true,
-      //
-      //
-      //   iconSize: 24.w,
-      //   autovalidateMode: autoValidateMode  ?? AutovalidateMode.onUserInteraction,
-      //   icon: Icon(Icons.keyboard_arrow_down),
-      //   iconEnabledColor: AppColors.primaryColor,
-      //   iconDisabledColor: AppColors.primaryColor,
-      //
-      //   borderRadius: BorderRadius.circular(25.r),
-      //   padding: EdgeInsets.zero,
-      //   onChanged: onChanged,
-      // ),
     );
   }
 }

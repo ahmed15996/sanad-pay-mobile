@@ -22,6 +22,7 @@ class OffersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackgroundColor,
+
       body: SafeArea(
         child: BlocProvider(
           create: (context) => getIt<OffersCubit>()..fetchOffers(),
@@ -36,7 +37,7 @@ class OffersView extends StatelessWidget {
                       LocaleKeys.offers.tr(),
                       style: AppTextStyles.textStyle20.copyWith(
                         fontWeight: FontWeight.w600,
-                        color: AppColors.rhinoDark.shade600
+                        color: AppColors.rhinoDark.shade600,
                       ),
                     ),
                   ),
@@ -45,16 +46,15 @@ class OffersView extends StatelessWidget {
               Expanded(
                 flex: 7,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor.withOpacity(0.4),
-                    boxShadow: [
-                      AppShadows.offerContainerShadow
-                    ],
+                    boxShadow: [AppShadows.offerContainerShadow],
                     borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(24.r)),
+                      top: Radius.circular(24.r),
+                    ),
                   ),
-                  child: BlocBuilder<OffersCubit,OffersState>(
+                  child: BlocBuilder<OffersCubit, OffersState>(
                     builder: (context, state) {
                       var cubit = context.read<OffersCubit>();
                       if (state is GetOffersLoading) {
@@ -68,7 +68,10 @@ class OffersView extends StatelessWidget {
                         );
                       } else {
                         return cubit.offers.isEmpty
-                            ? CustomEmptyData(text: LocaleKeys.comingSoonOffer.tr(),image: AppAssets.emptyOffers,)
+                            ? CustomEmptyData(
+                                text: LocaleKeys.comingSoonOffer.tr(),
+                                image: AppAssets.emptyOffers,
+                              )
                             : CustomOffersListWidget(offers: cubit.offers);
                       }
                     },

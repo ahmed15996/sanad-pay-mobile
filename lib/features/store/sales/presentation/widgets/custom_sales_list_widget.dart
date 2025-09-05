@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:sanad/core/widgets/custom_header_pagination_widget.dart';
 import 'package:sanad/features/store/sales/data/models/sales_model.dart';
 
 import '../../../../../core/framework/spaces.dart';
+import '../../../../../core/widgets/custom_footer_pagination_widget.dart';
 import '../../../home/data/models/order_model.dart';
 import '../cubit/sales_cubit.dart';
 import 'custom_sales_item_widget.dart';
@@ -19,6 +21,8 @@ class CustomSalesListWidget extends StatelessWidget {
     return Expanded(
       child: SmartRefresher(
         controller: cubit.ordersRefreshController,
+        header: CustomHeaderAppPagination(),
+        footer: CustomFooterAppPagination(),
         onRefresh: () {
           cubit.refreshSales();
         },

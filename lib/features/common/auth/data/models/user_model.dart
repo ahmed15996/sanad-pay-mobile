@@ -3,7 +3,8 @@ part 'user_model.g.dart';
 
 @JsonSerializable(includeIfNull: true)
 class UserModel {
-  final int id,balance;
+  final int id;
+  final num balance;
   @JsonKey(name: "national_id_verified",fromJson: _fromJson)
   bool nationalIdVerified;
   final String name, phone, image,type;

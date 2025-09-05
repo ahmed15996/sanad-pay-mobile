@@ -23,7 +23,12 @@ class CustomStoreOfferItemWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CustomImageNetwork(image: offer.image,radiusValue: 12,widthImage: 90.w,heightImage: 90.h,),
+          CustomImageNetwork(
+            image: offer.image,
+            radiusValue: 12,
+            widthImage: 90.w,
+            heightImage: 90.h,
+          ),
           widthSpace(16.w),
           Expanded(
             child: Column(
@@ -32,33 +37,43 @@ class CustomStoreOfferItemWidget extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Text(offer.name,
+                      child: Text(
+                        offer.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.textStyle16.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: AppColors.secondaryColor
-                      ),),
+                          color: AppColors.secondaryColor,
+                        ),
+                      ),
                     ),
-                    Text("${offer.discount}% ${LocaleKeys.off.tr()}",style: AppTextStyles.textStyle14.copyWith(
+                    Text(
+                      "${offer.discount}% ${LocaleKeys.off.tr()}",
+                      style: AppTextStyles.textStyle14.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.secondaryColor
-                    ),),
+                        color: AppColors.secondaryColor,
+                      ),
+                    ),
                   ],
                 ),
                 heightSpace(4),
-                Text(offer.date,style: AppTextStyles.textStyle16.copyWith(
+                Text(
+                  offer.date,
+                  style: AppTextStyles.textStyle14.copyWith(
+                    color: AppColors.rhinoDark.shade300,
+                  ),
+                ),
+                heightSpace(10),
+                Text(
+                  "${offer.price} ${LocaleKeys.sar.tr()}",
+                  style: AppTextStyles.textStyle16.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: AppColors.darkSecondaryColor
-                ),),heightSpace(4),
-                Text("${offer.price} ${LocaleKeys.sar.tr()}",style: AppTextStyles.textStyle16.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.greenColor
-                ),),
-
+                    color: AppColors.greenColor,
+                  ),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

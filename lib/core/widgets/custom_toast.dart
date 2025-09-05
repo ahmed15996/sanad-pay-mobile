@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -23,10 +22,7 @@ Color? toastColor(ToastStates state) {
   return color;
 }
 
-void showToast({
-  required String text,
-  required ToastStates state,
-}) =>
+void showToast({required String text, required ToastStates state}) =>
     Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_LONG,
@@ -34,6 +30,6 @@ void showToast({
       timeInSecForIosWeb: 1,
       backgroundColor: toastColor(state),
       textColor: AppColors.whiteColor,
-      fontAsset: "assets/fonts/Manrope-Regular.ttf",
+      fontAsset: "assets/fonts/Almarai-Regular.ttf",
       fontSize: AppFonts.t15,
     );

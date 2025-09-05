@@ -67,6 +67,9 @@ class StoreHomeView extends StatelessWidget {
                             cubit.dashboardModel!.pendingOrders.isNotEmpty ||
                                 cubit.dashboardModel!.latestOrders.isNotEmpty
                             ? SingleChildScrollView(
+                              padding: EdgeInsets.only(
+                                bottom: 100.h
+                              ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

@@ -43,7 +43,7 @@ class _CustomSettingListState extends State<CustomSettingList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.r),
         color: AppColors.whiteColor,
@@ -51,9 +51,32 @@ class _CustomSettingListState extends State<CustomSettingList> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          CustomSettingItemWidget(
+            leadingIcon: AppAssets.language,
+            title:
+                "${LocaleKeys.language.tr()} (${context.locale.languageCode == "en" ? "English" : "العربية"})",
+            widget: Container(
+              padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 7.h),
+              decoration: BoxDecoration(
+                color: AppColors.languageColor,
+                borderRadius: BorderRadius.circular(8.r),
+                border: Border.all(color: AppColors.borderSecondaryColor),
+              ),
+              child: Text(
+                context.locale.languageCode == "ar" ? "En" : "Ar",
+                style: AppTextStyles.textStyle12.copyWith(
+                  color: AppColors.rhinoDark.shade600,
+                ),
+              ),
+            ),
+            onTap: () {
+              widget.cubit.saveChanges(context);
+            },
+          ),
           if (widget.cubit.isAuthenticated) ...[
             CustomSettingItemWidget(
               title: LocaleKeys.touchIdFaceId.tr(),
+              leadingIcon: AppAssets.face,
               widget: SizedBox(
                 width: 24.w,
                 height: 24.h,
@@ -82,61 +105,48 @@ class _CustomSettingListState extends State<CustomSettingList> {
           ],
           if (widget.isUser)
             CustomSettingItemWidget(
+              leadingIcon: AppAssets.cards,
               title: LocaleKeys.cards.tr(),
-              trailingIcon: AppAssets.arrowForward,
+              trailingIcon: AppAssets.iosArrow,
               onTap: () {},
             ),
+
           CustomSettingItemWidget(
-            title:
-                "${LocaleKeys.language.tr()} (${context.locale.languageCode == "en" ? "English" : "العربية"})",
-            widget: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.r),
-                border: Border.all(color: AppColors.rhinoDark.shade600),
-              ),
-              child: Text(
-                context.locale.languageCode == "ar" ? "En" : "Ar",
-                style: AppTextStyles.textStyle12.copyWith(
-                  color: AppColors.rhinoDark.shade600,
-                ),
-              ),
-            ),
-            onTap: () {
-              widget.cubit.saveChanges(context);
-            },
-          ),
-          CustomSettingItemWidget(
+            leadingIcon: AppAssets.faq,
             title: LocaleKeys.faq.tr(),
-            trailingIcon: AppAssets.arrowForward,
+            trailingIcon: AppAssets.iosArrow,
             onTap: () {
               context.pushWithNamed(Routes.faqView);
             },
           ),
           CustomSettingItemWidget(
+            leadingIcon: AppAssets.contract,
             title: LocaleKeys.termsAndConditions.tr(),
-            trailingIcon: AppAssets.arrowForward,
+            trailingIcon: AppAssets.iosArrow,
             onTap: () {
               context.pushWithNamed(Routes.termsView);
             },
           ),
           CustomSettingItemWidget(
+            leadingIcon: AppAssets.privacy,
             title: LocaleKeys.privacyAndPolicy.tr(),
-            trailingIcon: AppAssets.arrowForward,
+            trailingIcon: AppAssets.iosArrow,
             onTap: () {
               context.pushWithNamed(Routes.privacyView);
             },
           ),
           CustomSettingItemWidget(
+            leadingIcon: AppAssets.about,
             title: LocaleKeys.about.tr(),
-            trailingIcon: AppAssets.arrowForward,
+            trailingIcon: AppAssets.iosArrow,
             onTap: () {
               context.pushWithNamed(Routes.aboutUsView);
             },
           ),
           CustomSettingItemWidget(
+            leadingIcon: AppAssets.support,
             title: LocaleKeys.contactUs.tr(),
-            trailingIcon: AppAssets.arrowForward,
+            trailingIcon: AppAssets.iosArrow,
             onTap: () {
               UrlLauncherHelper.launchWhatsappLink(
                 widget.cubit.appSettingsModel!.phone,
@@ -144,8 +154,9 @@ class _CustomSettingListState extends State<CustomSettingList> {
             },
           ),
           CustomSettingItemWidget(
+            leadingIcon: AppAssets.rate,
             title: LocaleKeys.rateUs.tr(),
-            trailingIcon: AppAssets.arrowForward,
+            trailingIcon: AppAssets.iosArrow,
             onTap: () {
               UrlLauncherHelper.openLink(
                 Platform.isAndroid

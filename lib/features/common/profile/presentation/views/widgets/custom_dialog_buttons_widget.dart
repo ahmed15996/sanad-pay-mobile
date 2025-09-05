@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sanad/core/constants/app_text_styles.dart';
 import 'package:sanad/core/util/extensions/navigation.dart';
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/framework/spaces.dart';
@@ -10,16 +11,15 @@ import '../../cubit/profile_cubit.dart';
 
 class CustomDialogButtonsWidget extends StatelessWidget {
   final String confirmText;
-
   final void Function() confirmTap;
-
   final ProfileState state;
 
-  const CustomDialogButtonsWidget(
-      {super.key,
-      required this.confirmText,
-      required this.state,
-      required this.confirmTap});
+  const CustomDialogButtonsWidget({
+    super.key,
+    required this.confirmText,
+    required this.state,
+    required this.confirmTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +30,9 @@ class CustomDialogButtonsWidget extends StatelessWidget {
             height: 40.h,
             onPressed: confirmTap,
             text: confirmText,
+            style: AppTextStyles.textStyle12.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
             backgroundColor: AppColors.primaryColor,
             isLoading: state is LogOutLoading || state is DeleteAccLoading,
           ),
@@ -38,13 +41,16 @@ class CustomDialogButtonsWidget extends StatelessWidget {
         Expanded(
           child: CustomButton(
             height: 40.h,
+            style: AppTextStyles.textStyle12.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
             backgroundColor: AppColors.blackColor,
             onPressed: () {
               context.pop();
             },
             text: LocaleKeys.cancel.tr(),
           ),
-        )
+        ),
       ],
     );
   }

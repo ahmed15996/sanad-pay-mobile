@@ -25,6 +25,27 @@ class CreateFinancingCubit extends Cubit<CreateFinancingState> {
 
   final formKey = GlobalKey<FormState>();
 
+  bool isButtonEnabled = false;
+
+  void validateForm() {
+
+      isButtonEnabled =
+          nationalIdCtrl.text.isNotEmpty &&
+              dateOfBirthCtrl.text.isNotEmpty &&
+              occupationCtrl.text.isNotEmpty &&
+              dateOfStartedJobCtrl.text.isNotEmpty &&
+              salaryCtrl.text.isNotEmpty;
+      emit(SelectDateState());
+  }
+
+  void initListeners(){
+    nationalIdCtrl.addListener(validateForm);
+    dateOfBirthCtrl.addListener(validateForm);
+    occupationCtrl.addListener(validateForm);
+    dateOfStartedJobCtrl.addListener(validateForm);
+    salaryCtrl.addListener(validateForm);
+  }
+
   void selectDateOfBirth(DateTime date){
     dateOfBirthCtrl.text = DateFormat('yyyy-MM-dd', 'en').format(date);
     emit(SelectDateState());

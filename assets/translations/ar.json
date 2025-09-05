@@ -175,6 +175,33 @@
   "enterStoreInformation" : "ادخل بيانات المتجر",
   "emptyNotification" : "لقد أنهيت كل شيء!",
   "emptyNotificationContent" :  "ليس لديك أي إشعارات جديدة في الوقت الحالي.",
-  "emptySearch" : "لا توجد متاجر قريبة متاحة في الوقت الحالي!"
+  "emptySearch" : "لا توجد متاجر قريبة متاحة في الوقت الحالي!",
+  "emptyNationalId" : "يرجى إدخال رقمك القومي",
+  "emptyDateOfBirth" : "يرجى اختيار تاريخ الميلاد",
+  "emptyOccupation" : "يرجى إدخال وظيفتك",
+  "emptyStartedJobDate" : "يرجى اختيار تاريخ بدء العمل",
+  "emptySalary" : "يرجى إدخال راتبك",
+  "emptyCity" : "يرجى اختيار المدينة",
+  "emptyCategory" : "يرجى اختيار الفئة",
+  "loadFailed" : "فشل التحميل",
+  "releaseToLoadMore" : "حرّر للتحميل المزيد",
+  "emptyStoreName" : "يرجى إدخال اسم المتجر",
+  "emptyStoreImageOrLogo" : "يرجى إرفاق صورة المتجر أو الشعار",
+  "emptyStoreBranchesNumber" : "يرجى إدخال عدد فروع المتجر",
+  "emptyStoreDescription" : "يرجى إدخال وصف المتجر",
+  "emptyAddress" : "يرجى إدخال العنوان",
+  "emptyStoreOwnerName" : "يرجى إدخال اسم مالك المتجر",
+  "emptyStoreLocation" : "يرجى تحديد موقع المتجر على الخريطة",
+  "emptyCommercialNumber" : "يرجى إدخال الرقم التجاري",
+  "emptyCommercialImage" : "يرجى إرفاق صورة السجل التجاري",
+  "emptyJobStartHour" : "يرجى اختيار ساعة بدء العمل",
+  "emptyToHour" : "يرجى اختيار ساعة الانتهاء",
+  "am" : "ص",
+  "pm" : "م",
+  "paymentRejected" : "الدفع مرفوض",
+  "paymentApproved" : "الدفع مقبول",
+  "select" : "اختر"
+
+
 
 }

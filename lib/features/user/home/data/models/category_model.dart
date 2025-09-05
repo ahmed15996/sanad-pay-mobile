@@ -1,9 +1,10 @@
+import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'category_model.g.dart';
 
 @JsonSerializable(createToJson: false)
-class CategoryModel {
+class CategoryModel  with CustomDropdownListFilter{
   final int id;
   final String image,name;
 
@@ -15,4 +16,14 @@ class CategoryModel {
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       _$CategoryModelFromJson(json);
+
+  @override
+  bool filter(String query) {
+    return name.toLowerCase().contains(query.toLowerCase());
+  }
+
+  @override
+  String toString() {
+    return name;
+  }
 }

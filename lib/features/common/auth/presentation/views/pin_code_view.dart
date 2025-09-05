@@ -16,9 +16,21 @@ import '../widgets/pin_code_widgets/custom_code_sent_success_widget.dart';
 import '../widgets/pin_code_widgets/custom_not_send_code_and_resend.dart';
 import '../widgets/pin_code_widgets/custom_pin_code_widget.dart';
 
-class PinCodeView extends StatelessWidget {
+class PinCodeView extends StatefulWidget {
   final PinCodeArgument argument;
   const PinCodeView({super.key, required this.argument});
+
+  @override
+  State<PinCodeView> createState() => _PinCodeViewState();
+}
+
+class _PinCodeViewState extends State<PinCodeView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<PinCodeCubit>().addListener();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +44,7 @@ class PinCodeView extends StatelessWidget {
               Expanded(
                 child: SafeArea(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.only(
-                      start: 24.w,
-                      top: 30.h,
-                    ),
+                    padding: EdgeInsetsDirectional.only(start: 24.w, top: 30.h),
                     child: Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
@@ -49,7 +58,10 @@ class PinCodeView extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w,vertical: 20.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 20.h,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.whiteColor,
                     borderRadius: BorderRadius.vertical(
@@ -59,23 +71,22 @@ class PinCodeView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomCodeSentSuccessWidget(phone: argument.phone),
+                      CustomCodeSentSuccessWidget(phone: widget.argument.phone),
                       heightSpace(170),
                       CustomPinCodeWidget(),
                       heightSpace(32),
-                      CustomNotSendCodeAndResend(argument: argument),
+                      CustomNotSendCodeAndResend(argument: widget.argument),
                       Spacer(),
                       CustomButton(
                         onPressed: () {
                           if (cubit.formKey.currentState!.validate()) {
-
-                              cubit.verifyCode(
-                                context: context,
-                                argument: argument,
-                              );
-
+                            cubit.verifyCode(
+                              context: context,
+                              argument: widget.argument,
+                            );
                           }
                         },
+                        isDisabled: !cubit.isButtonEnabled,
                         isLoading: state is PinCodeLoading,
                         text: LocaleKeys.verify.tr(),
                       ),

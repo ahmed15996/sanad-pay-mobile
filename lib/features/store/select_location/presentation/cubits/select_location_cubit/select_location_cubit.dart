@@ -78,8 +78,8 @@ class SelectLocationCubit extends Cubit<SelectLocationState> {
 
   void getCurrentLocation({required bool isApple}) async {
     try {
-        Position position = await LocationHelper.getCurrentPosition();
-        currentLocation = LatLng(position.latitude, position.longitude);
+        Position? position = await LocationHelper.getCurrentPosition();
+        currentLocation = LatLng(position?.latitude ?? 24.774265, position?.longitude ?? 46.738586);
       Placemark placeMark =
           await LocationHelper.getLocationInfo(currentLocation!);
       currentLocationName =
@@ -122,8 +122,8 @@ class SelectLocationCubit extends Cubit<SelectLocationState> {
   }
 
   updateCurrentLocation() async {
-    Position position = await LocationHelper.getCurrentPosition();
-    LatLng currentLoc = LatLng(position.latitude, position.longitude);
+    Position? position = await LocationHelper.getCurrentPosition();
+    LatLng currentLoc = LatLng(position?.latitude ?? 24.774265, position?.longitude ?? 46.738586);
     currentLocation = currentLoc;
     googleMapController!.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: currentLoc, zoom: 15.0)));

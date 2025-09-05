@@ -26,6 +26,7 @@ class CustomButtonSendRequestCreateAccTechWidget extends StatelessWidget {
           );
         }
       },
+        isDisabled: !cubit.isButtonEnabled,
       isLoading: cubit.state is CreateAccLoading,
       text: LocaleKeys.createAccount.tr()
     );

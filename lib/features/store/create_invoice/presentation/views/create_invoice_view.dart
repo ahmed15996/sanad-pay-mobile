@@ -1,22 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sanad/core/util/extensions/navigation.dart';
 import 'package:sanad/core/widgets/custom_error.dart';
 import 'package:sanad/core/widgets/custom_loading.dart';
 import 'package:sanad/features/store/create_invoice/presentation/widgets/custom_create_invoice_form_widget.dart';
 import 'package:sanad/features/store/create_invoice/presentation/widgets/custom_create_invoice_header_widget.dart';
 
 import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/util/routing/routes.dart';
+import '../../../../common/bottom_nav/data/arguments/bottom_nav_argument.dart';
 import '../cubit/create_invoice_cubit.dart';
 
-class CreateInvoiceView extends StatelessWidget {
+class CreateInvoiceView extends StatefulWidget {
   const CreateInvoiceView({super.key});
 
+  @override
+  State<CreateInvoiceView> createState() => _CreateInvoiceViewState();
+}
+
+class _CreateInvoiceViewState extends State<CreateInvoiceView> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<CreateInvoiceCubit>().addListener();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: BlocBuilder<CreateInvoiceCubit, CreateInvoiceState>(
+      body: BlocConsumer<CreateInvoiceCubit, CreateInvoiceState>(
+        listener: (context, state) {
+          if(state is CreateInvoiceSuccess){
+            context.pushReplacementWithNamed(
+              Routes.bottomNavView,
+              arguments: BottomNavArgument(isUser: false, index: 0),
+            );
+          }
+        },
         builder: (context, state) {
           var cubit = context.read<CreateInvoiceCubit>();
           if (state is GetDataLoading) {

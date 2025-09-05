@@ -10,7 +10,7 @@ import '../cubit/qr_scanner_cubit.dart';
 
 
 class QrScannerView extends StatelessWidget {
-  final void Function(String barcode,BuildContext context) updateBarcode;
+  final void Function(String barcode) updateBarcode;
 
   const QrScannerView({super.key, required this.updateBarcode});
 

@@ -36,7 +36,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: isDisabled ? null : onPressed,
+      onTap: onPressed,
       child: Container(
         height: (height ?? 50).h,
         width: width ?? double.infinity,
@@ -64,6 +64,8 @@ class CustomButton extends StatelessWidget {
                   widthSpace(7.w),
                   CustomLoading(
                     isButton: true,
+                    heightLoading: 12,
+                    widthLoading: 12,
                     loadingColor: loadingColor ?? AppColors.whiteColor,
                     strokeWidth: strokeWidth ?? 3.5.w,
                   ),

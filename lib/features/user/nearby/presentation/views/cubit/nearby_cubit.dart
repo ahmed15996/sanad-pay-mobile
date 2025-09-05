@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sanad/features/user/nearby/data/data_source/params/search_params.dart';
 
+import '../../../../../../core/helpers/custom_location_helper.dart';
 import '../../../../../../core/widgets/custom_toast.dart';
 import '../../../../home/data/models/store_model.dart';
 import '../../../data/repository/nearby_repository.dart';
@@ -40,7 +42,8 @@ class NearbyCubit extends Cubit<NearbyState> {
     } else {
       emit(GetNearbyLoading());
     }
-    var result = await repository.fetchSearch(SearchParams(page: page,key: searchController.text ));
+    Position? position = await LocationHelper.getCurrentLocation();
+    var result = await repository.fetchSearch(SearchParams(page: page,key: searchController.text,lat: position?.latitude,long: position?.longitude));
     result.fold(
       (failure) {
         if (page != 1) {

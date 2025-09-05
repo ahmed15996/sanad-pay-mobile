@@ -18,32 +18,42 @@ import '../../../../../../core/widgets/custom_image_network.dart';
 
 class CustomNotificationItemWidget extends StatelessWidget {
   final NotificationModel notificationModel;
-  const CustomNotificationItemWidget({super.key, required this.notificationModel});
+  const CustomNotificationItemWidget({
+    super.key,
+    required this.notificationModel,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<NotificationsCubit>();
     return Row(
       children: [
-        SvgPicture.asset(AppAssets.logo,width: 23.w,height: 28.h,color: AppColors.primaryColor,),
+        SvgPicture.asset(
+          AppAssets.logo,
+          width: 23.w,
+          height: 28.h,
+          color: AppColors.primaryColor,
+        ),
         widthSpace(30.w),
         Expanded(
-          child: Text(notificationModel.body,style: AppTextStyles.textStyle14.copyWith(
+          child: Text(
+            notificationModel.body,
+            style: AppTextStyles.textStyle14.copyWith(
               fontWeight: FontWeight.w600,
-              color: AppColors.blackColor
-          ),),
+              color: AppColors.blackColor,
+            ),
+          ),
         ),
       ],
-    ).onTap(function: () async{
-      if(notificationModel.order?.status == "pending"){
-        var result = await context.pushWithNamed(Routes.paymentRequestView,arguments: PaymentRequestArguments(
-          orderModel: notificationModel.order!,
-          isFromNotification: true
-        ));
-        if(result != null){
-          cubit.fetchNotifications();
-        }
-      }
-    },);
+    ).onTap(
+      function: () {
+        context.pushWithNamed(
+          Routes.paymentRequestView,
+          arguments: PaymentRequestArguments(
+            orderModel: notificationModel.order!,
+            isFromNotification: true,
+          ),
+        );
+      },
+    );
   }
 }

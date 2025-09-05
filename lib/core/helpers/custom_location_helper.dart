@@ -32,7 +32,7 @@ class LocationHelper {
     return havePermission;
   }
 
-  static Future<Position> getCurrentLocation() async {
+  static Future<Position?> getCurrentLocation() async {
     await Geolocator.checkPermission();
     bool serviceEnabled = await LocationHelper.isServiceEnabled();
     bool serviceHavePermission = await LocationHelper.isServiceHavePermission();
@@ -44,10 +44,10 @@ class LocationHelper {
     } else if (!serviceEnabled && serviceHavePermission) {
       return await getCurrentPosition();
     } else if (serviceEnabled && !serviceHavePermission) {
-      await requestLocationPermission();
+      // await requestLocationPermission();
       return await getCurrentPosition();
     } else {
-      await requestLocationPermission();
+      // await requestLocationPermission();
       return await getCurrentPosition();
     }
   }
@@ -65,13 +65,11 @@ class LocationHelper {
     }
   }
 
-  static Future<Position> getCurrentPosition() async {
+  static Future<Position?> getCurrentPosition() async {
     try {
-      return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
-      );
+      return await Geolocator.getCurrentPosition();
     } catch (e) {
-      throw Exception();
+      return null;
     }
   }
 

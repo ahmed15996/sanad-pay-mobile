@@ -2,14 +2,17 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
+import 'package:sanad/core/util/extensions/navigation.dart';
 import 'package:sanad/features/user/home/data/models/category_model.dart';
 import '../../../../../core/framework/app_firebase.dart';
 import '../../../../../core/helpers/custom_phone_controller.dart';
 import '../../../../../core/helpers/image_helper.dart';
 import '../../../../../core/widgets/custom_toast.dart';
+import '../../../../../generated/locale_keys.g.dart';
 import '../../../../user/create_acc_user/data/models/city_model.dart';
 import '../../../../user/create_acc_user/data/repository/create_acc_user_repository.dart';
 import '../../../select_location/data/arguments/store_location_argument.dart';
@@ -49,6 +52,43 @@ class CreateAccStoreCubit extends Cubit<CreateAccStoreState> {
 
   CityModel? selectedCityId;
   CategoryModel? selectedCategoryId;
+  TimeOfDay workFrom = TimeOfDay.now();
+  TimeOfDay workTo = TimeOfDay.now();
+
+  bool isButtonEnabled = false;
+  void validateForm() {
+    isButtonEnabled =
+        storeNameCtrl.text.isNotEmpty &&
+        storeOwnerNameCtrl.text.isNotEmpty &&
+        storeLocationCtrl.text.isNotEmpty &&
+        addressCtrl.text.isNotEmpty &&
+        phoneCtrl.controller.text.isNotEmpty &&
+        storeLogoCtrl.text.isNotEmpty &&
+        descriptionCtrl.text.isNotEmpty &&
+        branchesCountCtrl.text.isNotEmpty &&
+        workFromCtrl.text.isNotEmpty &&
+        workToCtrl.text.isNotEmpty &&
+        commerceNumCtrl.text.isNotEmpty &&
+        imageCommerceCtrl.text.isNotEmpty &&
+        selectedCityId != null &&
+        selectedCategoryId != null;
+    emit(GetDataSuccess());
+  }
+
+  void addListener() {
+    storeNameCtrl.addListener(validateForm);
+    storeOwnerNameCtrl.addListener(validateForm);
+    storeLocationCtrl.addListener(validateForm);
+    addressCtrl.addListener(validateForm);
+    phoneCtrl.addListener(validateForm);
+    storeLogoCtrl.addListener(validateForm);
+    descriptionCtrl.addListener(validateForm);
+    branchesCountCtrl.addListener(validateForm);
+    workFromCtrl.addListener(validateForm);
+    workToCtrl.addListener(validateForm);
+    commerceNumCtrl.addListener(validateForm);
+    imageCommerceCtrl.addListener(validateForm);
+  }
 
   void changeCityValue(CityModel value) {
     selectedCityId = value;
@@ -61,18 +101,27 @@ class CreateAccStoreCubit extends Cubit<CreateAccStoreState> {
     return '$hour:$minute';
   }
 
+  String formatTimeOfDayWithPeriod(TimeOfDay time) {
+    final hour = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
+    final minute = time.minute.toString().padLeft(2, '0');
+    final period = time.period == DayPeriod.am ? LocaleKeys.am.tr() : LocaleKeys.pm.tr();
+    return "$hour:$minute $period";
+  }
+
   void changeCategoryValue(CategoryModel value) {
     selectedCategoryId = value;
     emit(ChangeValueDropDown());
   }
 
   void changeWorkFrom(TimeOfDay value) {
-    workFromCtrl.text = formatTimeOfDay(value);
+    workFromCtrl.text = formatTimeOfDayWithPeriod(value);
+    workFrom = value;
     emit(ChangeValueDropDown());
   }
 
   void changeWorkTo(TimeOfDay value) {
-    workToCtrl.text = formatTimeOfDay(value);
+    workToCtrl.text = formatTimeOfDayWithPeriod(value);
+    workTo = value;
     emit(ChangeValueDropDown());
   }
 
@@ -173,8 +222,8 @@ class CreateAccStoreCubit extends Cubit<CreateAccStoreState> {
       commercialImage: MultipartFile.fromFileSync(imageCommerce!.path),
       branchesCount: branchesCountCtrl.text,
       description: descriptionCtrl.text,
-      workFrom: workFromCtrl.text,
-      workTo: workToCtrl.text
+      workFrom: formatTimeOfDay(workFrom),
+      workTo: formatTimeOfDay(workTo),
     );
   }
 
@@ -188,11 +237,8 @@ class CreateAccStoreCubit extends Cubit<CreateAccStoreState> {
       },
       (message) {
         emit(GetDataSuccess());
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (_) => const CustomFinishAccStoreDialog(),
-        );
+        showToast(text: message, state: ToastStates.success);
+        context.pop();
       },
     );
   }
@@ -210,7 +256,6 @@ class CreateAccStoreCubit extends Cubit<CreateAccStoreState> {
     addressCtrl.dispose();
     workFromCtrl.dispose();
     workToCtrl.dispose();
-
 
     return super.close();
   }

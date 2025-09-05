@@ -44,6 +44,7 @@ class CustomLocationPermissionDialog extends StatelessWidget {
                   LocaleKeys.allowLocationDetection.tr(),
                   style: AppTextStyles.textStyle18.copyWith(
                     fontWeight: FontWeight.w700,
+                    color: AppColors.blackColor
                   ),
                 ),
                 heightSpace(18.h),
@@ -51,22 +52,29 @@ class CustomLocationPermissionDialog extends StatelessWidget {
                   LocaleKeys.allowLocationDescription.tr(),
                   style: AppTextStyles.textStyle16.copyWith(
                     fontWeight: FontWeight.w500,
+                      color: AppColors.blackColor
                   ),
                 ),
                 heightSpace(22.h),
                 Text(
                   LocaleKeys.step1.tr(),
-                  style: AppTextStyles.textStyle14,
+                  style: AppTextStyles.textStyle14.copyWith(
+                      color: AppColors.blackColor
+                  ),
                 ),
                 heightSpace(16.h),
                 Text(
                   LocaleKeys.step2.tr(),
-                  style: AppTextStyles.textStyle14,
+                  style: AppTextStyles.textStyle14.copyWith(
+                      color: AppColors.blackColor
+                  ),
                 ),
                 heightSpace(16.h),
                 Text(
                   LocaleKeys.step3.tr(),
-                  style: AppTextStyles.textStyle14,
+                  style: AppTextStyles.textStyle14.copyWith(
+                      color: AppColors.blackColor
+                  ),
                 ),
                 heightSpace(25.h),
                 CustomButton(
