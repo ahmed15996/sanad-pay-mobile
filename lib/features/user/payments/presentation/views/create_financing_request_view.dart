@@ -88,10 +88,10 @@ class _CreateFinancingRequestViewState
                 builder: (context, state) {
                   var cubit = context.read<CreateFinancingCubit>();
                   return SingleChildScrollView(
+                    padding: EdgeInsets.only( bottom:
+                    MediaQuery.of(context).viewInsets.bottom + 20.h,),
                     child: AbsorbPointer(
-                      absorbing: state is SendFinancingRequestLoading
-                          ? true
-                          : false,
+                      absorbing: state is SendFinancingRequestLoading,
                       child: Column(
                         children: [
                           const CustomCreateFinancingHeaderWidget(),

@@ -34,7 +34,9 @@ class CustomApplyForFinancingWidget extends StatelessWidget {
             text: LocaleKeys.applyForFinancing.tr(),
             isDisabled: !canApplyFinance,
             onPressed: () {
-              context.pushWithNamed(Routes.createFinancingView);
+              if(canApplyFinance) {
+                context.pushWithNamed(Routes.createFinancingView);
+              }
             },
           ),
         ],

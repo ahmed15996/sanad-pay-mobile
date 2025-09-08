@@ -35,7 +35,7 @@ class CustomStoreDashboardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.only(start: 38.w, end: 25.w, top: 20.h),
+      padding: EdgeInsetsDirectional.only(start: 38.w, end: 25.w),
       child: Column(
         children: [
           Row(
@@ -55,8 +55,8 @@ class CustomStoreDashboardWidget extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(10),
                 child: Container(
-                  width: 124.w,
-                  height: 124.h,
+                  width: 110.w,
+                  height: 110.h,
                   decoration: ShapeDecoration(
                     color: AppColors.whiteColor,
                     shape: PolygonBorder(

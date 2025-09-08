@@ -127,7 +127,7 @@ class PaymentRequestView extends StatelessWidget {
                   top: 0,
                   left: 0,
                   right: 0,
-                  child: SvgPicture.asset(paymentRequestArguments.orderModel.status == "pending" ? AppAssets.pending : paymentRequestArguments.orderModel.status == "rejected" ? AppAssets.rejected : AppAssets.success,width: 124,height: 124,),
+                  child: SvgPicture.asset(paymentRequestArguments.orderModel.status == "pending" ? AppAssets.pending : paymentRequestArguments.orderModel.status == "rejected" ? AppAssets.rejected : AppAssets.success,),
                 ),
                 Positioned(
                   left: 15.w,

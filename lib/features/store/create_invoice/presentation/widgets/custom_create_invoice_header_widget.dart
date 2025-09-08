@@ -21,17 +21,17 @@ class CustomCreateInvoiceHeaderWidget extends StatelessWidget {
   final DashboardModel dashboardModel;
   final UserModel userModel;
   final AppSettingsModel appSettingsModel;
-  const CustomCreateInvoiceHeaderWidget({super.key, required this.dashboardModel, required this.userModel, required this.appSettingsModel});
+  const CustomCreateInvoiceHeaderWidget({
+    super.key,
+    required this.dashboardModel,
+    required this.userModel,
+    required this.appSettingsModel,
+  });
 
   @override
   Widget build(BuildContext context) {
-
-    return  Padding(
-      padding: EdgeInsetsDirectional.only(
-        start: 38.w,
-        end: 25.w,
-        top: 20.h,
-      ),
+    return Padding(
+      padding: EdgeInsetsDirectional.only(start: 38.w, end: 25.w),
       child: Column(
         children: [
           Row(
@@ -40,17 +40,18 @@ class CustomCreateInvoiceHeaderWidget extends StatelessWidget {
               Transform(
                 alignment: Alignment.center,
                 transform:
-                TextDirection.ltr.name == Directionality.of(context).name
+                    TextDirection.ltr.name == Directionality.of(context).name
                     ? Matrix4.rotationY(3.1416)
                     : Matrix4.rotationY(0),
-                child: SvgPicture.asset(
-                  AppAssets.arrowBack,
-                  color: AppColors.whiteColor,
-                ).onTap(
-                  function: () {
-                    context.pop();
-                  },
-                ),
+                child:
+                    SvgPicture.asset(
+                      AppAssets.arrowBack,
+                      color: AppColors.whiteColor,
+                    ).onTap(
+                      function: () {
+                        context.pop();
+                      },
+                    ),
               ),
               Container(
                 decoration: ShapeDecoration(
@@ -61,8 +62,8 @@ class CustomCreateInvoiceHeaderWidget extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(10),
                 child: Container(
-                  width: 124.w,
-                  height: 124.h,
+                  width: 110.w,
+                  height: 110.h,
                   decoration: ShapeDecoration(
                     color: AppColors.whiteColor,
                     shape: PolygonBorder(
@@ -71,7 +72,7 @@ class CustomCreateInvoiceHeaderWidget extends StatelessWidget {
                     ),
                   ),
                   padding: EdgeInsets.all(40.w),
-                  child: CustomImageNetwork(image: userModel.image)
+                  child: CustomImageNetwork(image: userModel.image),
                 ),
               ),
               SvgPicture.asset(AppAssets.contact).onTap(

@@ -54,33 +54,36 @@ class _CreateInvoiceViewState extends State<CreateInvoiceView> {
           } else {
             return SafeArea(
               bottom: false,
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: CustomCreateInvoiceHeaderWidget(
-                      dashboardModel: cubit.dashboardModel!,
-                      userModel: cubit.userModel!,
-                      appSettingsModel: cubit.appSettingsModel!,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 24.w,
-                        vertical: 20.h,
+              child: AbsorbPointer(
+                absorbing: state is CreateInvoiceLoading || state is CreateQrInvoiceLoading,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: CustomCreateInvoiceHeaderWidget(
+                        dashboardModel: cubit.dashboardModel!,
+                        userModel: cubit.userModel!,
+                        appSettingsModel: cubit.appSettingsModel!,
                       ),
-                      decoration: BoxDecoration(
-                        color: AppColors.whiteColor,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(24.r),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.w,
+                          vertical: 20.h,
                         ),
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(24.r),
+                          ),
+                        ),
+                        child: CustomCreateInvoiceFormWidget(),
                       ),
-                      child: CustomCreateInvoiceFormWidget(),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           }

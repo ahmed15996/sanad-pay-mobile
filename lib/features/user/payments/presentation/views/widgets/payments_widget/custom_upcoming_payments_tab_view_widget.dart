@@ -23,12 +23,10 @@ class CustomUpcomingPaymentsTabViewWidget extends StatelessWidget {
               cubit.fetchUpcomingPayments();
             },
           )
-        : cubit.upcomingPayments!.hasPaidThisMonth
-        ? CustomCompletedPaymentWidget()
         : cubit.upcomingPayments!.upcomingPayment == null
         ? CustomApplyForFinancingWidget(
-      canApplyFinance: cubit.upcomingPayments!.canApplyForFinance,
-    )
+            canApplyFinance: cubit.upcomingPayments!.canApplyForFinance,
+          )
         : CustomPaymentWidget(
             paymentModel: cubit.upcomingPayments!.upcomingPayment!,
           );

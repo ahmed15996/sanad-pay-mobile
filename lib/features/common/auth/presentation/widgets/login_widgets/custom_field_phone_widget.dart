@@ -62,53 +62,56 @@ class _CustomFieldPhoneWidgetState extends State<CustomFieldPhoneWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: widget.fillColor,
-            boxShadow: [
-              AppShadows.defaultShadow
-            ],
-            borderRadius: BorderRadius.circular(
-              widget.borderRadiusValue ?? 30.r,
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: Container(
+            decoration: BoxDecoration(
+              color: widget.fillColor,
+              boxShadow: [
+                AppShadows.defaultShadow
+              ],
+              borderRadius: BorderRadius.circular(
+                widget.borderRadiusValue ?? 30.r,
+              ),
+              border: Border.all(
+                color: widget.borderColor ?? borderColor(isHide: widget.isHide),
+              ),
             ),
-            border: Border.all(
-              color: widget.borderColor ?? borderColor(isHide: widget.isHide),
-            ),
-          ),
-          child: TextFormField(
-            enabled: widget.isEnabled,
-            controller: widget.phoneController.controller,
+            child: TextFormField(
+              enabled: widget.isEnabled,
+              controller: widget.phoneController.controller,
 
-            style: AppTextStyles.textStyle12.copyWith(
-              fontWeight: FontWeight.w500,
-              color: AppColors.darkSecondaryColor
-            ),
-            onChanged: (String? value) {
-              if (value != null) {
-                widget.phoneController.validatePhoneField();
-              }
-            },
-            onTapOutside: (event) {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              isDense: true,
-              hintText: widget.hintText ?? LocaleKeys.mobileNumber.tr(),
-              enabledBorder: buildOutlineInputBorder(
-                widget.borderColor
+              style: AppTextStyles.textStyle12.copyWith(
+                fontWeight: FontWeight.w500,
+                color: AppColors.darkSecondaryColor
               ),
-              focusedBorder: buildOutlineInputBorder(
+              onChanged: (String? value) {
+                if (value != null) {
+                  widget.phoneController.validatePhoneField();
+                }
+              },
+              onTapOutside: (event) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                isDense: true,
+                hintText: widget.hintText ?? LocaleKeys.mobileNumber.tr(),
+                enabledBorder: buildOutlineInputBorder(
                   widget.borderColor
-              ),
-              prefixIcon: widget.prefixWidget  ?? SvgPicture.asset(AppAssets.phone,fit: BoxFit.scaleDown,),
-              suffixIcon: widget.suffixWidget,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 17.h,
-                horizontal: 20.w,
+                ),
+                focusedBorder: buildOutlineInputBorder(
+                    widget.borderColor
+                ),
+                prefixIcon: widget.prefixWidget  ?? SvgPicture.asset(AppAssets.phone,fit: BoxFit.scaleDown,),
+                suffixIcon: widget.suffixWidget,
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 17.h,
+                  horizontal: 20.w,
+                ),
               ),
             ),
           ),

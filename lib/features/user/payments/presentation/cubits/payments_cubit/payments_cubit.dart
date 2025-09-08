@@ -47,7 +47,7 @@ class PaymentsCubit extends Cubit<PaymentsState> {
         emit(PayFailure());
       },
       (String message) {
-        upcomingPayments!.hasPaidThisMonth = true;
+        upcomingPayments!.upcomingPayment = null;
         showToast(text: message, state: ToastStates.success);
         emit(PaySuccess());
       },

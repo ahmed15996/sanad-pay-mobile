@@ -26,10 +26,10 @@ class SalesView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<SalesCubit>()..fetchDashboard(),
       child: Scaffold(
-        backgroundColor: AppColors.scaffoldBackgroundColor,
         appBar: CustomAppbar(
           title: LocaleKeys.sales.tr(),
           leadingWidth: 80.w,
+
           systemUiOverlayStyle: SystemUiOverlayStyle(
             statusBarIconBrightness: Brightness.dark,
           ),
@@ -38,9 +38,11 @@ class SalesView extends StatelessWidget {
               var cubit = context.read<SalesCubit>();
               if (cubit.userModel != null) {
                 return Padding(
-                  padding: EdgeInsets.all(20.w),
+                  padding: EdgeInsets.all(10.w),
                   child: CustomImageNetwork(
                     image: cubit.userModel!.image,
+                    fit: BoxFit.contain,
+
                     widthImage: 24.w,
                     heightImage: 24.h,
                     radiusValue: 12,
@@ -52,6 +54,7 @@ class SalesView extends StatelessWidget {
             },
           ),
         ),
+        backgroundColor: AppColors.scaffoldBackgroundColor,
         body: BlocBuilder<SalesCubit, SalesState>(
           builder: (context, state) {
             var cubit = context.read<SalesCubit>();
@@ -68,7 +71,7 @@ class SalesView extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  heightSpace(32),
+
                   CustomSalesDataWidget(dashboardModel: cubit.dashboardModel!),
                   heightSpace(34),
                   Padding(

@@ -43,6 +43,10 @@ class CustomInputCreateFinancingWidget extends StatelessWidget {
                 firstDate: DateTime(1900),
                 initialDate: DateTime.now(),
                 lastDate: DateTime.now(),
+                initialEntryMode: DatePickerEntryMode.calendarOnly
+
+
+
               );
               if (date != null) {
                 cubit.selectDateOfBirth(date);
@@ -60,6 +64,7 @@ class CustomInputCreateFinancingWidget extends StatelessWidget {
           CustomTextFormField(
             ctrl: cubit.dateOfStartedJobCtrl,
             hintText: LocaleKeys.enterTheDateYouStartedYourCurrentJob.tr(),
+
             validator: AppValidator.startedJobDateValidator,
             readOnly: true,
             onTap: () async {
@@ -68,6 +73,7 @@ class CustomInputCreateFinancingWidget extends StatelessWidget {
                 firstDate: DateTime(1900),
                 initialDate: DateTime.now(),
                 lastDate: DateTime.now(),
+                  initialEntryMode: DatePickerEntryMode.calendarOnly
               );
               if (date != null) {
                 cubit.selectDateOfStartedJob(date);

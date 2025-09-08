@@ -44,10 +44,10 @@ class LocationHelper {
     } else if (!serviceEnabled && serviceHavePermission) {
       return await getCurrentPosition();
     } else if (serviceEnabled && !serviceHavePermission) {
-      // await requestLocationPermission();
+      await requestLocationPermission();
       return await getCurrentPosition();
     } else {
-      // await requestLocationPermission();
+      await requestLocationPermission();
       return await getCurrentPosition();
     }
   }
@@ -78,6 +78,7 @@ class LocationHelper {
     final isGranted = await Permission.locationWhenInUse.request().isGranted;
     if (!isGranted) {
       await AppSettings.openAppSettings();
+
       Navigator.pop(SanadApp.appNavigatorKey.currentState!.context);
       onFinish!();
     }

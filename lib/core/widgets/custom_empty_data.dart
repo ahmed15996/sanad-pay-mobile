@@ -31,7 +31,7 @@ class CustomEmptyData extends StatelessWidget {
             padding:  EdgeInsets.symmetric(horizontal: 24.w),
             child: Text(
               text ?? LocaleKeys.emptyData.tr(),
-              style: AppTextStyles.textStyle20.copyWith(
+              style: AppTextStyles.textStyle16.copyWith(
                 fontWeight: FontWeight.w600,
                 color: AppColors.rhinoDark.shade600,
               ),

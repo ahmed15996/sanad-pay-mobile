@@ -65,7 +65,6 @@ class CreateAccStoreCubit extends Cubit<CreateAccStoreState> {
         phoneCtrl.controller.text.isNotEmpty &&
         storeLogoCtrl.text.isNotEmpty &&
         descriptionCtrl.text.isNotEmpty &&
-        branchesCountCtrl.text.isNotEmpty &&
         workFromCtrl.text.isNotEmpty &&
         workToCtrl.text.isNotEmpty &&
         commerceNumCtrl.text.isNotEmpty &&
@@ -83,7 +82,6 @@ class CreateAccStoreCubit extends Cubit<CreateAccStoreState> {
     phoneCtrl.addListener(validateForm);
     storeLogoCtrl.addListener(validateForm);
     descriptionCtrl.addListener(validateForm);
-    branchesCountCtrl.addListener(validateForm);
     workFromCtrl.addListener(validateForm);
     workToCtrl.addListener(validateForm);
     commerceNumCtrl.addListener(validateForm);

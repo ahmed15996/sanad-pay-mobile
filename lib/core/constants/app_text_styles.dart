@@ -5,7 +5,7 @@ import 'app_fonts.dart';
 
 abstract class AppTextStyles {
   static final TextStyle textStyle32 = TextStyle(
-    fontSize: AppFonts.t24,
+    fontSize: AppFonts.t20,
     fontWeight: FontWeight.w600,
     color: AppColors.whiteColor,
   );

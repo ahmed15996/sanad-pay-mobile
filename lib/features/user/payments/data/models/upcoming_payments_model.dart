@@ -7,14 +7,11 @@ part 'upcoming_payments_model.g.dart';
 class UpcomingPaymentsModel {
   @JsonKey(name: 'can_apply_for_finance')
   final bool canApplyForFinance;
-  @JsonKey(name: 'has_paid_this_month')
-  bool hasPaidThisMonth;
   @JsonKey(name: 'upcoming_payment')
-  final PaymentModel? upcomingPayment;
+  PaymentModel? upcomingPayment;
 
   UpcomingPaymentsModel({
     required this.canApplyForFinance,
-    required this.hasPaidThisMonth,
     this.upcomingPayment,
   });
 
