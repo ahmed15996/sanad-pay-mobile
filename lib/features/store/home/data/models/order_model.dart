@@ -9,6 +9,8 @@ class OrderModel {
   final String? userName;
   @JsonKey(name: 'store_name')
   final String? storeName;
+  @JsonKey(name: 'store_logo')
+  final String? storeLogo;
   @JsonKey(name: 'store_owner')
   final String? storeOwner;
   @JsonKey(name: 'store_commercial_number')
@@ -26,6 +28,7 @@ class OrderModel {
     required this.status,
     required this.date,
     this.storeName,
+    this.storeLogo,
     this.storeOwner,
     this.storeCommercialNumber,
     this.referenceNumber,

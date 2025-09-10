@@ -59,7 +59,7 @@ class AppAssets {
   static const String pending = "$_imagesPath/pending.svg";
   static const String emptyOffers = "$_imagesPath/empty_offers.svg";
   static const String emptyNotification = "$_imagesPath/empty_notification.svg";
-  static const String testImage = "https://yavuzceliker.github.io/sample-images/image-1.jpg";
+  static const String splashAnimation = "$_imagesPath/splash_animation.json";
 
 
 }

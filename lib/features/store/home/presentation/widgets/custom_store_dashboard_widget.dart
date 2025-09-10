@@ -44,6 +44,10 @@ class CustomStoreDashboardWidget extends StatelessWidget {
               SvgPicture.asset(AppAssets.settings).onTap(
                 function: () async{
                   await context.pushWithNamed(Routes.profileView);
+                  if(context.mounted) {
+                    context.read<HomeStoreCubit>().fetchDashboard();
+                  }
+
                 },
               ),
               Container(
@@ -64,7 +68,7 @@ class CustomStoreDashboardWidget extends StatelessWidget {
                       side: BorderSide(color: AppColors.whiteColor),
                     ),
                   ),
-                  padding: EdgeInsets.all(40.w),
+                  padding: EdgeInsets.all(25.w),
                   child: CustomImageNetwork(image: userModel.image),
                 ),
               ),

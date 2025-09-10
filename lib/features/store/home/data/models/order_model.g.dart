@@ -13,6 +13,7 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
   status: json['status'] as String,
   date: json['date'] as String,
   storeName: json['store_name'] as String?,
+  storeLogo: json['store_logo'] as String?,
   storeOwner: json['store_owner'] as String?,
   storeCommercialNumber: json['store_commercial_number'] as String?,
   referenceNumber: json['reference_no'] as String?,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,9 +29,9 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return UpgradeAlert(
+      dialogStyle: Platform.isIOS ? UpgradeDialogStyle.cupertino : UpgradeDialogStyle.material,
       upgrader: Upgrader(
         languageCode: context.locale.languageCode,
-
         countryCode:
             WidgetsBinding.instance.platformDispatcher.locale.countryCode,
       ),

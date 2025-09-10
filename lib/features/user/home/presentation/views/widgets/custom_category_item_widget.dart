@@ -13,25 +13,21 @@ class CustomCategoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 62.w,
-      child: Column(
-        children: [
-          CustomImageNetwork(
-            image: categoryModel.image,
-            widthImage: 50,
-            heightImage: 50,
-            radiusValue: 25,
-          ),
-          heightSpace(4),
-          Text(categoryModel.name,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: AppTextStyles.textStyle12.copyWith(
-            color: AppColors.blackColor,
-          )),
-        ],
-      ),
+    return Column(
+      children: [
+        CustomImageNetwork(
+          image: categoryModel.image,
+          widthImage: 50,
+          heightImage: 50,
+          radiusValue: 25,
+        ),
+        heightSpace(4),
+        Text(categoryModel.name,
+            maxLines: 1,
+            style: AppTextStyles.textStyle12.copyWith(
+          color: AppColors.blackColor,
+        )),
+      ],
     );
   }
 }

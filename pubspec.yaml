@@ -53,6 +53,7 @@ dependencies:
   pusher_channels_flutter: ^2.5.0
   animated_custom_dropdown: ^3.1.1
   flutter_widget_from_html: ^0.17.1
+  lottie: ^3.3.2
 
 
 

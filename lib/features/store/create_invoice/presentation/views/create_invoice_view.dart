@@ -34,7 +34,7 @@ class _CreateInvoiceViewState extends State<CreateInvoiceView> {
       body: BlocConsumer<CreateInvoiceCubit, CreateInvoiceState>(
         listener: (context, state) {
           if(state is CreateInvoiceSuccess){
-            context.pushReplacementWithNamed(
+            context.pushAndRemoveUntilWithNamed(
               Routes.bottomNavView,
               arguments: BottomNavArgument(isUser: false, index: 0),
             );

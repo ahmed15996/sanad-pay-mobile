@@ -17,26 +17,13 @@ class CustomSalesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<SalesCubit>();
-    return Expanded(
-      child: SmartRefresher(
-        controller: cubit.ordersRefreshController,
-        header: CustomHeaderAppPagination(),
-        footer: CustomFooterAppPagination(),
-        onRefresh: () {
-          cubit.refreshSales();
-        },
-        onLoading: () {
-          cubit.paginateSales();
-        },
-        enablePullUp: true,
-        child: ListView.separated(
-          itemCount: orders.length,
-          padding: EdgeInsetsDirectional.only(start: 24.w,end: 24.w,bottom: 60.h,top: 16.h),
-          separatorBuilder: (context, index) => heightSpace(21),
-          itemBuilder: (context, index) => CustomSalesItemWidget(orderModel: orders[index],),
-        ),
-      ),
+    return ListView.separated(
+      itemCount: orders.length,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsetsDirectional.only(start: 24.w,end: 24.w,bottom: 100.h,top: 16.h),
+      separatorBuilder: (context, index) => heightSpace(21),
+      itemBuilder: (context, index) => CustomSalesItemWidget(orderModel: orders[index],),
     );
   }
 }

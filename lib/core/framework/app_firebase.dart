@@ -136,6 +136,7 @@ void navigateToScreen(Map<String, dynamic> data) {
           storeName: data["store_name"],
           time: data["time"],
           storeOwner: data["store_owner"],
+          storeLogo: data["store_logo"],
           storeCommercialNumber: data["store_commercial_number"],
         ),
       ),

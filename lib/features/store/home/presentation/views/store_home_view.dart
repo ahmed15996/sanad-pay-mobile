@@ -117,6 +117,7 @@ class StoreHomeView extends StatelessWidget {
                                               context
                                                   .read<BottomNavCubit>()
                                                   .changeNavIndex(index: 2);
+
                                             },
                                           ),
                                         ],

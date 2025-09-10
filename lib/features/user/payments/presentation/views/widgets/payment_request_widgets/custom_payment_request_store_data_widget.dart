@@ -16,7 +16,7 @@ class CustomPaymentRequestStoreDataWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Row(
       children: [
-        CustomImageNetwork(image: AppAssets.testImage,widthImage: 56.w,heightImage: 56.h,),
+        CustomImageNetwork(image: orderModel.storeLogo ?? "",widthImage: 56.w,heightImage: 56.h,),
         widthSpace(12),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

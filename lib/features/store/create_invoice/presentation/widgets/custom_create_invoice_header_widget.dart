@@ -71,7 +71,7 @@ class CustomCreateInvoiceHeaderWidget extends StatelessWidget {
                       side: BorderSide(color: AppColors.whiteColor),
                     ),
                   ),
-                  padding: EdgeInsets.all(40.w),
+                  padding: EdgeInsets.all(25.w),
                   child: CustomImageNetwork(image: userModel.image),
                 ),
               ),
